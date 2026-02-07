@@ -1,0 +1,35 @@
+---
+interface Props {
+  current?: string;
+}
+
+const { current } = Astro.props;
+
+const categories = [
+  { slug: 'leadership', label: 'Leadership' },
+  { slug: 'best-practices', label: 'Best Practices' },
+  { slug: 'career', label: 'Career' },
+  { slug: 'ai', label: 'AI' },
+];
+---
+
+<nav class="flex gap-3 flex-wrap mb-6">
+  <a
+    href="/blog/"
+    class:list={[
+      'text-sm px-3 py-1 border rounded-full no-underline',
+      !current ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-500 border-gray-200 hover:bg-blue-600 hover:text-white hover:border-blue-600',
+    ]}
+  >All</a>
+  {categories.map((cat) => (
+    <a
+      href={`/blog/category/${cat.slug}/`}
+      class:list={[
+        'text-sm px-3 py-1 border rounded-full no-underline',
+        current === cat.slug ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-500 border-gray-200 hover:bg-blue-600 hover:text-white hover:border-blue-600',
+      ]}
+    >
+      {cat.label}
+    </a>
+  ))}
+</nav>

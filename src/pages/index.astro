@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogPostCard from '../components/BlogPostCard.astro';
+import CategoryNav from '../components/CategoryNav.astro';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const recentPosts = posts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
+---
+
+<BaseLayout title="Home">
+  <section class="text-center pt-12 pb-10 border-b border-gray-200 mb-8">
+    <h1 class="text-4xl font-bold mb-3">Engineering Excellence</h1>
+    <p class="text-lg text-gray-500 max-w-xl mx-auto">
+      Practical insights on software engineering leadership, best practices,
+      career growth, and AI — for engineers who build in enterprise settings.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="text-xl font-bold mb-4">Recent Articles</h2>
+    <CategoryNav />
+    {recentPosts.length > 0 ? (
+      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {recentPosts.map((post) => (
+          <BlogPostCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            category={post.data.category}
+            tags={post.data.tags}
+            url={`/blog/${post.id}/`}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-gray-500 py-8">No published articles yet. Check back soon.</p>
+    )}
+    {recentPosts.length > 0 && (
+      <p class="mt-6"><a href="/blog/">View all articles &rarr;</a></p>
+    )}
+  </section>
+</BaseLayout>

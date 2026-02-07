@@ -1,0 +1,28 @@
+---
+import TagList from './TagList.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  category: string;
+  tags: string[];
+  url: string;
+}
+
+const { title, description, pubDate, category, tags, url } = Astro.props;
+---
+
+<article class="p-5 border border-gray-200 rounded-lg transition-colors hover:border-blue-600">
+  <a href={`/blog/category/${category}/`} class="inline-block text-xs font-semibold uppercase tracking-wide text-blue-600 mb-1">{category}</a>
+  <h3 class="text-lg leading-snug mb-2">
+    <a href={url} class="text-gray-900 hover:text-blue-600 no-underline">{title}</a>
+  </h3>
+  <p class="text-sm text-gray-500 mb-3">{description}</p>
+  <div class="flex items-center gap-3 flex-wrap">
+    <time datetime={pubDate.toISOString()} class="text-xs text-gray-500">
+      {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+    </time>
+    <TagList tags={tags} />
+  </div>
+</article>
