@@ -1,0 +1,247 @@
+CURMUDGEONLY STAFF ENGINEER REVIEW: V3 vs V2
+=============================================
+Article: "From Senior to Staff" — condensed version (v3)
+Reviewing against: v2 (the 21-min version we already tightened)
+Reviewer disposition: same grumpy person, now comparing what got cut.
+
+---
+
+OVERALL TAKE
+------------
+The compression is impressive — you kept the skeleton and most of the muscle.
+But you also lost some connective tissue that was doing more work than it
+looked. A few cuts saved words but cost clarity, and two spots now read like
+a summary of a better article instead of the article itself. Let me be
+specific.
+
+---
+
+MATERIAL LOSSES FROM V2
+------------------------
+
+1. THE INTRO LOST ITS EMPATHY (v2 lines 18-22, v3 lines 16-18)
+
+   v2 had: "I've seen really talented engineers burn two, three years trying
+   to 'level up' at companies that didn't actually have a staff track. They
+   had a title on a career ladder doc somewhere, sure. But nobody had ever
+   been promoted into it."
+
+   v3 cut this entirely. That paragraph is why someone trusts you enough to
+   keep reading. It says "I've been close to this, I've watched it happen,
+   I'm not going to waste your time." Without it, the intro is competent
+   but cold — it reads like a thesis statement instead of a conversation.
+
+   SUGGESTION: Add back ONE sentence. Something like "I've watched talented
+   engineers burn years chasing a title that didn't actually exist at their
+   company" slotted in after "you're stuck" on line 18. Costs you ~15 words.
+   Buys you credibility for the next 2,000.
+
+
+2. "LET'S START WITH YOU, BECAUSE IT'S THE PART YOU CAN ACTUALLY DO
+   SOMETHING ABOUT" (v2 line 43, cut from v3)
+
+   This line did two things: it acknowledged that the org stuff is outside
+   your control, and it set the tone — "we're going to be practical, not
+   theoretical." v3 just jumps in with the thesis. It's fine, but it lost
+   a beat that made the reader feel guided.
+
+   SUGGESTION: Not critical. But if you're looking for 8 words to add back,
+   these are good ones.
+
+
+3. THE PEER EXERCISE LOST ITS TEETH (v3 line 101 vs v2 lines 188-192)
+
+   v2 had: "Don't defend yourself. Just listen. If two out of three say the
+   same thing, that's your development area. One conversation like this will
+   teach you more than six months of reading articles about staff
+   engineering (including this one)."
+
+   v3 only kept: "If two out of three say the same thing, that's your
+   development area."
+
+   The "don't defend yourself" instruction is the whole point. Without it,
+   engineers will ask the question, hear something uncomfortable, explain
+   why the person is wrong, and learn nothing. That's the default behavior
+   for anyone technical enough to be reading this article. The instruction
+   to shut up and listen is what makes the exercise actually work.
+
+   SUGGESTION: Add "Don't defend yourself. Just listen." back before the
+   "two out of three" line. Six words. Non-negotiable.
+
+
+4. "IDENTITY RENOVATION" IS GONE (v2 line 186)
+
+   v2 had: "That's not a career tactic. It's more like an identity
+   renovation, and it takes way longer than a quarter."
+
+   v3 has: "That's an identity renovation, and it takes longer than a
+   quarter."
+
+   Wait — actually v3 does have this. My mistake. But v3 lost the "That's
+   not a career tactic" lead-in, which set up the contrast nicely. The
+   phrase "identity renovation" landing after "career tactic" makes it
+   clear this isn't resume optimization — it's something deeper. Without
+   the setup, "identity renovation" is still good, but it hits with less
+   force.
+
+   SUGGESTION: Minor. Add "It's not a career tactic —" before "it's an
+   identity renovation." Five words.
+
+
+5. THE "WHAT TO DO THIS WEEK" SECTION LOST THE PEER EXERCISE (v2 line 286)
+
+   v2's closing action list had four items including "Run the peer test from
+   Part 3." v3's closing has three items and dropped this. But the peer
+   exercise is the single most actionable, most uncomfortable, most
+   valuable thing in the entire article. If someone reads to the end and
+   only does ONE thing, it should be that.
+
+   SUGGESTION: Add it back as a fourth bullet. "**And do this**: Ask three
+   trusted peers the question from the diagnostic above. That conversation
+   is worth more than anything else in this article." ~20 words.
+
+
+6. THE V2 ORG SIGNALS LIST WAS BETTER (v2 lines 200-208 vs v3 line 103)
+
+   v2 had seven specific signals including two killers:
+   - "You write a staff-level proposal and your director presents it at the
+     next leadership meeting as their own idea"
+   - "There's no real gap between 'senior IC' and 'director' — nothing in
+     between where ICs make real decisions"
+
+   v3 kept only four and dropped both of those. The "director steals your
+   proposal" signal is the one that makes readers go "holy shit, that
+   happened to me" — it's recognition, not advice, and recognition builds
+   trust faster than anything. The "no gap between senior and director"
+   signal is structurally important because it diagnoses a whole category
+   of orgs that don't believe in senior IC roles at all.
+
+   SUGGESTION: Add at least one back. The stolen proposal one is the
+   strongest — it's vivid, specific, and instantly recognizable. Costs
+   ~20 words.
+
+
+7. "WHERE THIS ADVICE FALLS SHORT" — GONE ENTIRELY
+
+   v2 had five caveats: company size (<100 engineers), crisis mode,
+   can't fake it, watch what leadership funds, cross-team work is slower.
+
+   v3 folded exactly ONE of these in (regulated industries, under the
+   diagnostic table) and dropped the rest.
+
+   The ones that actually matter:
+   - "If things are on fire, forget all of this" — this is critical context.
+     An engineer at a company doing layoffs right now who reads this and
+     starts trying to do cross-team strategy work is going to look tone-deaf.
+   - "Watch what leadership funds, not what they say" — this is maybe the
+     most practical single line in the entire article. It's a diagnostic
+     tool that cuts through corporate BS in five seconds.
+
+   SUGGESTION: Add both back as a two-line paragraph after the diagnostic
+   table or at the end. Something like: "Two caveats: if your company is
+   in crisis mode, shelve this — trying to do cross-team strategy during
+   layoffs makes you look out of touch, not strategic. And always watch
+   what leadership funds, not what they say. If the budget, the meeting
+   invites, and the decision authority all flow to managers, the IC track
+   isn't real no matter what the career ladder doc says." ~55 words, but
+   they prevent the article from being naive.
+
+
+---
+
+CLARITY ISSUES (NOT ABOUT WHAT WAS CUT)
+-----------------------------------------
+
+8. THE COMPRESSED ORG REQUIREMENTS PARAGRAPH IS A WALL (v3 lines 89-91)
+
+   v2 had five numbered, individually explained requirements. v3 compressed
+   them into a single paragraph with bold phrases. The problem: it's now a
+   wall of text that a scanning reader will skip entirely. And this is the
+   part aimed at LEADERS — the people who need to hear it most and have the
+   least patience for dense paragraphs.
+
+   The "air cover" point gets a follow-up sentence, but the other four are
+   just parentheticals inside bold phrases. "Active sponsorship (creating
+   opportunities, not waiting)" — a leader reads that and says "yeah I do
+   that" and moves on. v2 had the Ferrazzi example about a leader whose
+   team's growth was capped by his bandwidth, which made sponsorship
+   concrete and harder to dismiss.
+
+   SUGGESTION: You don't need to go back to five full paragraphs. But at
+   minimum, break this into a bulleted list instead of a run-on paragraph.
+   Scanning readers need visual hooks. The Ferrazzi example for sponsorship
+   is worth adding back as one sentence.
+
+
+9. THE "IS IT YOU OR THE ORG?" MERGE IS FINE BUT NEEDS A BEAT (v3 line 95)
+
+   Combining Parts 3 and 4 into one section was a good structural call.
+   But the transition from "it might be you" to "it's probably the org"
+   has no breathing room. v2 had a horizontal rule and a new heading between
+   them. v3 has two blank lines.
+
+   This matters because the emotional register is completely different.
+   "It might be you" is uncomfortable. "It's probably the org" is
+   validating. Smashing them together without a pause makes the you-part
+   feel like a speed bump on the way to the org-part, which undermines the
+   "look in the mirror" message.
+
+   SUGGESTION: Add a single transitional sentence before the org signals.
+   Something like "Now the flip side." (v2 had this — "Now the flip side.
+   If you've honestly sat with Part 3 and it doesn't ring true, look at
+   these signals." You can use just the first three words.)
+
+
+10. "UNDERSTANDING THE MECHANICS MATTERS" IS WEAKER (v3 line 111)
+
+    v2 had: "understanding the mechanics matters as much as doing the work."
+
+    v3 has: "understanding the mechanics matters."
+
+    The "as much as doing the work" is the part that makes engineers sit up.
+    Most engineers believe the work speaks for itself. Telling them that
+    understanding the political mechanics matters *as much* is the
+    uncomfortable truth that makes this section worth reading. Without it,
+    "understanding the mechanics matters" is a nothing sentence.
+
+    SUGGESTION: Add "as much as doing the work" back. Five words. They
+    carry the whole section's thesis.
+
+
+---
+
+THINGS V3 DID WELL (credit where due)
+---------------------------------------
+- Archetype section compression is clean — one paragraph instead of a
+  bullet list, loses nothing material
+- The four shifts are tight without feeling gutted
+- Diagnostic table survived intact — smart, it's the most shareable part
+- Promo mechanics section kept all the right beats (packet, calibration,
+  manager capital, visibility, timing, time-in-level)
+- The gold callout quote survived
+- The comp honesty check in the intro is still there and still good
+- The "go deep" caveat survived the cut
+- Interview questions for evaluating new orgs survived — practical and
+  differentiating
+- Reading time dropped from 21 to 9 — that's a real improvement for
+  the target audience
+
+---
+
+BOTTOM LINE
+-----------
+v3 is a good compression. It's not a hatchet job. But it made about six
+cuts that saved 100 words total while costing real reader trust and
+actionability. The fixes above add ~130 words (bringing you to roughly
+10 min, still under budget at 238 wpm) and restore the material that
+separates this from every other "how to get to staff" article on the
+internet.
+
+Priority order if you're going to be stingy about word count:
+1. "Don't defend yourself. Just listen." (6 words — makes the exercise work)
+2. "as much as doing the work" (5 words — makes the promo section land)
+3. The empathy sentence in the intro (~15 words — builds trust)
+4. The stolen proposal org signal (~20 words — builds recognition)
+5. The two caveats from "Where This Falls Short" (~55 words — prevents naivety)
+6. Org requirements as bullet list (0 extra words, just reformatting)
+7. Peer exercise in What to Do This Week (~20 words — closes the loop)

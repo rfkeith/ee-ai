@@ -10,9 +10,10 @@ interface Props {
   author: string;
   category: string;
   tags: string[];
+  readingTime?: number;
 }
 
-const { title, description, pubDate, updatedDate, author, category, tags } = Astro.props;
+const { title, description, pubDate, updatedDate, author, category, tags, readingTime } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -33,6 +34,11 @@ const { title, description, pubDate, updatedDate, author, category, tags } = Ast
             <time datetime={updatedDate.toISOString()}>
               {updatedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </time>
+          </span>
+        )}
+        {readingTime && (
+          <span>
+            &middot; {readingTime} min read
           </span>
         )}
       </div>

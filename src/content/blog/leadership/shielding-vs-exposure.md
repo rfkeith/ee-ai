@@ -5,7 +5,7 @@ pubDate: 2026-02-07
 author: "Robert"
 category: "leadership"
 tags: ["leadership", "team-management", "meetings", "async", "growth", "organizational-dynamics", "engineering-culture"]
-draft: false
+draft: true
 sources:
   - book: "Unite the Tribes"
     author: "Christopher Duncan"

@@ -1,0 +1,221 @@
+CURMUDGEONLY STAFF ENGINEER REVIEW
+===================================
+Article: "From Senior to Staff: What You Need to Change and What Your Org Needs to Provide"
+Reviewer disposition: 14 years in, promoted to staff at two different companies, seen this movie before.
+
+---
+
+OVERALL TAKE
+------------
+Better than 90% of the "how to get to staff" slop on the internet. The two-sided
+framing (you AND the org) is the right call and I wish more people said it. But there
+are spots where the article tells a clean story that real life doesn't support, and a
+few claims that would get picked apart in any serious engineering Slack.
+
+---
+
+SPECIFIC ISSUES
+---------------
+
+1. THE 70/30 RATIO IS MADE UP (Line 51)
+   "If it's more than 70/30 toward doing it yourself, you're still working like a
+   senior engineer."
+
+   Says who? Where does 70/30 come from? This reads like a number someone picked
+   because it felt right. A staff engineer at an infrastructure company might be 90/10
+   toward "I did it" because their job IS building the platform others use. A staff
+   engineer embedded in a product org might be 20/80. The ratio depends entirely on
+   the archetype (Tanya Reilly's four archetypes would be useful here). Presenting a
+   single ratio as a universal benchmark is the kind of oversimplification this article
+   claims to avoid.
+
+   SUGGESTION: Either cite where 70/30 comes from, or frame it as "if the ratio is
+   heavily skewed toward solo work, that's worth examining" without inventing a
+   threshold.
+
+
+2. STAFF ENGINEER ≠ ONE THING (Throughout)
+   The article treats "staff engineer" as a single role with a single profile: the
+   cross-team connector who shapes problems and enables others. That's ONE archetype.
+
+   Will Larson (Staff Engineer book) and Tanya Reilly identify at least four:
+   - Tech Lead: deep in one team, sets technical direction
+   - Architect: cross-team technical vision
+   - Solver: parachutes into the gnarliest problems (this person IS still solving)
+   - Right Hand: extends a VP's reach
+
+   The "Solver" archetype directly contradicts Shift #1. Some staff engineers are
+   promoted precisely BECAUSE they solve problems nobody else can. Telling them to
+   "stop solving" is wrong for their archetype.
+
+   SUGGESTION: Acknowledge that staff roles vary. The shifts described fit the
+   Architect/Tech Lead archetype best. A one-paragraph caveat would do it.
+
+
+3. THE BAND DIRECTOR ANALOGY DOESN'T LAND (Line 92)
+   "a band director who only hired musicians who could outplay him — making himself
+   the weakest player in the room. That's the vibe."
+
+   No it isn't. A staff engineer should NOT be the weakest technical person in the room.
+   That's a manager. Staff engineers maintain deep technical credibility — that's
+   literally what distinguishes the role from engineering management. The analogy
+   confuses "you don't have to be the one playing the solo" with "you should be worse
+   at your instrument than everyone else." A staff engineer who can't go deep when
+   needed loses the trust that makes the rest of the role work.
+
+   SUGGESTION: Reframe. The point is about ego (you don't need to be the star soloist)
+   not about skill (you should still be able to sit in and play).
+
+
+4. THE "WHAT NOT HOW" DICHOTOMY IS TOO CLEAN (Lines 79-92)
+   The senior-you/staff-you dialogue examples are good, but they imply staff engineers
+   never get into the how. In practice, staff engineers regularly go deep on the how
+   for critical decisions — they just do it selectively. A staff engineer who only ever
+   says "here's the problem, you figure it out" loses credibility fast, because the
+   team starts to wonder if they actually CAN go deep anymore.
+
+   The real shift isn't from how to what. It's from "how is my default" to "what is my
+   default, and I drop into how when the stakes are high enough."
+
+   SUGGESTION: Add a line about when staff engineers DO get into the how: high-risk
+   architecture decisions, novel problem domains, when the team is genuinely stuck.
+
+
+5. "30% OF ENERGY ON PROBLEMS OUTSIDE THEIR GROUP" (Line 55)
+   This is attributed to Ferrazzi's research but it's a study of leadership teams and
+   executives, not IC engineers. Applying executive-team research to IC staff engineers
+   without acknowledging the context difference is sloppy. A staff engineer spending
+   30% of their time on other teams' problems might be exactly what's needed — or it
+   might mean they're spread too thin to have deep impact anywhere. It depends on the
+   org size, the role archetype, and whether anyone asked for their help.
+
+   SUGGESTION: Flag that this finding is from executive team research and note that
+   the right percentage varies. The principle (look beyond your team) is sound; the
+   number is not transferable.
+
+
+6. THE STAFF TRACK DIAGNOSTIC TABLE IS BINARY (Lines 116-124)
+   Real orgs are messier than "real track" vs. "paper track." Most companies are
+   somewhere in between — they have some staff engineers but the criteria are unclear,
+   or there's cross-team work but no protected time for it. The table forces a binary
+   that doesn't match reality.
+
+   Also, "more than three in the right column" as the cutoff — why three? Same problem
+   as the 70/30 ratio. Arbitrary thresholds presented as diagnostic criteria.
+
+   SUGGESTION: Frame it as a spectrum, not a binary. "The more rows that land in the
+   right column, the more skeptical you should be about whether the track is real."
+
+
+7. MISSING: THE POLITICS OF STAFF PROMOTION (Throughout)
+   The article barely touches on the reality that staff promotions are deeply political
+   at most companies. They require a sponsor with enough org capital to push it through
+   a calibration meeting. They require a "packet" that tells a story. They require
+   timing — if the company just did layoffs or is in a headcount freeze, nobody's
+   getting promoted regardless of merit.
+
+   The article covers sponsorship (point 4 in Part 2) but treats it as a management
+   behavior, not as a political reality the engineer needs to navigate. Staff
+   candidates need to understand calibration, know who's in the room when decisions
+   are made, and actively manage their promotion narrative. That's not gaming the
+   system — it's understanding it.
+
+   SUGGESTION: Add a subsection or callout about the mechanics of how staff promotions
+   actually get decided at most large companies. Calibration meetings, promo packets,
+   the role of skip-levels, timing windows.
+
+
+8. "PARTICIPATION TROPHY" IS DISMISSIVE (Line 134)
+   "The staff title becomes a participation trophy."
+
+   This is a good line for Twitter engagement but it's reductive. Some companies give
+   staff engineers decision input rather than decision authority, and that's a
+   legitimate organizational choice — not necessarily a dysfunction. In highly
+   regulated industries (finance, healthcare), architectural decisions MUST go through
+   formal review. A staff engineer who has strong input into that review process isn't
+   holding a participation trophy; they're operating within a compliance framework.
+
+   SUGGESTION: Soften slightly. The point about decision authority is valid, but
+   acknowledge that "own the decision" vs. "have strong input into the decision"
+   depends on industry and context.
+
+
+9. MISSING: THE COMP QUESTION (Throughout)
+   The article never mentions compensation. In practice, the senior-to-staff gap is
+   often $50-100K+ in total comp at larger companies. This creates real incentive
+   distortions: engineers who don't actually want to do staff-level work pursuing the
+   title for the pay bump, and companies that use the comp gap as a retention tool
+   rather than a reflection of different work.
+
+   A curmudgeonly staff engineer would ask: "Are you sure you want to do this work, or
+   do you want the comp band?" Both are valid answers, but the article assumes everyone
+   pursuing staff actually wants to do staff work.
+
+   SUGGESTION: At least mention that the comp incentive exists and that wanting the
+   money is fine — but you should be honest with yourself about whether you'd enjoy
+   the actual day-to-day of the role.
+
+
+10. THE "ASK THREE PEERS" EXERCISE NEEDS A WARNING (Line 173)
+    "Ask three peers... 'If I were up for a staff promotion, what would be the
+    strongest argument against it?'"
+
+    This is great in theory and dangerous in practice. In many orgs, openly signaling
+    that you're targeting staff can backfire — it can come across as entitled, or it
+    can leak to your manager before you're ready to have that conversation. And "the
+    strongest argument against" is an incredibly vulnerable question to ask someone you
+    don't trust deeply.
+
+    SUGGESTION: Add a caveat about choosing these three people carefully. They need to
+    be people who will keep the conversation private and give honest feedback without
+    using it against you. In some org cultures, this exercise is actively risky.
+
+
+11. MISSING: THE TIME-IN-ROLE REALITY (Throughout)
+    Most large companies have minimum time-in-level requirements (typically 18-24
+    months at senior before staff is even discussable). The article doesn't mention
+    this at all. An engineer reading this who's been senior for 8 months might think
+    "I'll start working on these shifts now and get promoted next cycle" when in
+    reality the system won't even consider them yet.
+
+    SUGGESTION: Mention that most orgs have time-in-level expectations and that
+    starting the behavioral shifts early is smart — but don't expect the promotion
+    to follow immediately.
+
+
+12. THE "GO SOMEWHERE ELSE" OPTION IS UNDERDEVELOPED (Line 201)
+    "Go somewhere that has what you need" gets one paragraph. But this is actually the
+    most consequential decision in the article. How do you evaluate whether a new
+    company has a real staff track BEFORE you join? Interview questions to ask?
+    Signals to look for? How to avoid jumping from one paper track to another?
+
+    SUGGESTION: Add 3-4 interview questions you can ask to evaluate a staff track
+    from the outside. E.g., "How many people were promoted to staff last year?"
+    "Can I talk to a current staff engineer about their day-to-day?" "What
+    percentage of your staff engineers' time is on cross-team work?"
+
+
+---
+
+THINGS THAT ARE GOOD (credit where due)
+----------------------------------------
+- The two-sided framing is genuinely rare and valuable
+- The diagnostic table, despite being too binary, is more concrete than 90% of
+  career advice articles
+- Part 3 (When It's a You Thing) being separate and honest is strong
+- "Where This Advice Falls Short" section — most articles don't do this at all
+- The senior-you/staff-you dialogue comparisons are clear and useful
+- "you want senior engineers who also do extra stuff for free" — nailed it
+- The tone is genuinely better than most. Doesn't feel like a LinkedIn thought leader
+  trying to sell me a course
+
+---
+
+BOTTOM LINE
+-----------
+Would I share this with a senior engineer on my team? Yes, with caveats. I'd say
+"read this for the framing, but know that staff roles are more varied than this
+makes them sound, and the promotion process is more political than this admits."
+The article is 80% there. The remaining 20% is the messy, org-specific, political
+stuff that's genuinely hard to write about in a general article — but acknowledging
+it exists would go a long way.

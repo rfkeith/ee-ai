@@ -5,7 +5,7 @@ pubDate: 2026-02-07
 author: "Robert"
 category: "ai"
 tags: ["ai", "career", "software-engineering", "code-generation", "copilot", "threat-assessment", "skill-development"]
-draft: false
+draft: true
 sources:
   - book: "Unite the Tribes"
     author: "Christopher Duncan"
