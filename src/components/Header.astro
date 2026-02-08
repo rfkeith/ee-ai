@@ -4,14 +4,14 @@ const currentPath = Astro.url.pathname;
 
 <header class="border-b border-gray-200 px-4 py-4">
   <nav class="max-w-5xl mx-auto flex items-center justify-between flex-wrap gap-4">
-    <a href="/" class="font-bold text-lg text-gray-900 hover:text-blue-600 no-underline">Engineering Excellence</a>
+    <a href="/" class="font-bold text-lg text-gray-900 hover:text-purple-800 no-underline">Engineering Excellence</a>
     <ul class="flex list-none gap-5 flex-wrap">
-      <li><a href="/blog/" class:list={['text-sm text-gray-500 hover:text-blue-600', { 'text-blue-600!': currentPath.startsWith('/blog') }]}>Blog</a></li>
-      <li><a href="/blog/category/leadership/" class:list={['text-sm text-gray-500 hover:text-blue-600', { 'text-blue-600!': currentPath.includes('/leadership') }]}>Leadership</a></li>
-      <li><a href="/blog/category/best-practices/" class:list={['text-sm text-gray-500 hover:text-blue-600', { 'text-blue-600!': currentPath.includes('/best-practices') }]}>Best Practices</a></li>
-      <li><a href="/blog/category/career/" class:list={['text-sm text-gray-500 hover:text-blue-600', { 'text-blue-600!': currentPath.includes('/career') }]}>Career</a></li>
-      <li><a href="/blog/category/ai/" class:list={['text-sm text-gray-500 hover:text-blue-600', { 'text-blue-600!': currentPath.includes('/ai') }]}>AI</a></li>
-      <li><a href="/about/" class:list={['text-sm text-gray-500 hover:text-blue-600', { 'text-blue-600!': currentPath.startsWith('/about') }]}>About</a></li>
+      <li><a href="/blog/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.startsWith('/blog') }]}>Blog</a></li>
+      <li><a href="/blog/category/leadership/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.includes('/leadership') }]}>Leadership</a></li>
+      <li><a href="/blog/category/best-practices/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.includes('/best-practices') }]}>Best Practices</a></li>
+      <li><a href="/blog/category/career/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.includes('/career') }]}>Career</a></li>
+      <li><a href="/blog/category/ai/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.includes('/ai') }]}>AI</a></li>
+      <li><a href="/about/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.startsWith('/about') }]}>About</a></li>
     </ul>
   </nav>
 </header>

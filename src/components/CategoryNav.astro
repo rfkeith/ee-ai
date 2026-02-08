@@ -18,7 +18,7 @@ const categories = [
     href="/blog/"
     class:list={[
       'text-sm px-3 py-1 border rounded-full no-underline',
-      !current ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-500 border-gray-200 hover:bg-blue-600 hover:text-white hover:border-blue-600',
+      !current ? 'bg-purple-800 text-white border-purple-800' : 'text-gray-500 border-gray-200 hover:bg-purple-800 hover:text-white hover:border-purple-800',
     ]}
   >All</a>
   {categories.map((cat) => (
@@ -26,7 +26,7 @@ const categories = [
       href={`/blog/category/${cat.slug}/`}
       class:list={[
         'text-sm px-3 py-1 border rounded-full no-underline',
-        current === cat.slug ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-500 border-gray-200 hover:bg-blue-600 hover:text-white hover:border-blue-600',
+        current === cat.slug ? 'bg-purple-800 text-white border-purple-800' : 'text-gray-500 border-gray-200 hover:bg-purple-800 hover:text-white hover:border-purple-800',
       ]}
     >
       {cat.label}
