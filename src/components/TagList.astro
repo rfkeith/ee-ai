@@ -4,11 +4,12 @@ interface Props {
 }
 
 const { tags } = Astro.props;
+const displayTags = tags.slice(0, 3);
 ---
 
 {tags.length > 0 && (
   <div class="flex gap-1.5 flex-wrap">
-    {tags.map((tag) => (
+    {displayTags.map((tag) => (
       <a href={`/tags/${tag}/`} class="text-xs px-2 py-0.5 bg-purple-50 text-purple-900 rounded-sm no-underline hover:opacity-80">#{tag}</a>
     ))}
   </div>

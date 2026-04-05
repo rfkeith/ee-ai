@@ -4,7 +4,7 @@ description: "The senior-to-staff jump fails for two reasons and most advice onl
 pubDate: 2026-02-08
 author: "Robert"
 category: "career"
-tags: ["career-growth", "staff-engineer", "promotion", "engineering-leadership", "organizational-design", "career-ladder"]
+tags: ["career-growth", "staff-engineer", "promotion"]
 draft: true
 sources:
   - book: "Unite the Tribes"

@@ -4,7 +4,7 @@ description: "A concrete framework for running pre-mortems on architecture decis
 pubDate: 2026-02-07
 author: "Robert"
 category: "best-practices"
-tags: ["architecture", "risk-management", "decision-making", "pre-mortem", "enterprise", "frameworks"]
+tags: ["architecture", "risk-management", "pre-mortem"]
 draft: true
 sources:
   - book: "Never Lead Alone"

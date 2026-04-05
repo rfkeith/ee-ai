@@ -4,7 +4,7 @@ description: "The senior-to-staff jump fails for two reasons and most advice onl
 pubDate: 2026-02-08
 author: "Robert"
 category: "career"
-tags: ["career-growth", "staff-engineer", "promotion", "engineering-leadership", "organizational-design", "career-ladder"]
+tags: ["career-growth", "staff-engineer", "promotion"]
 draft: false
 sources:
   - book: "Unite the Tribes"
@@ -71,7 +71,7 @@ In *Never Lead Alone*, Ferrazzi describes teams that move from everything flowin
 
 ## Part 2: What Your Company Needs to Bring
 
-Here's where most career advice stops. **A lot of the time, the problem isn't you — it's that your company has a title on a PDF, not a real role.**
+Most career advice stops here. **A lot of the time, it's not you. Your company has a title on a PDF, not a real role.**
 
 ### Is Your Staff Track Real?
 

@@ -4,7 +4,7 @@ description: "A blunt, activity-by-activity breakdown of what AI can replace tod
 pubDate: 2026-02-07
 author: "Robert"
 category: "ai"
-tags: ["ai", "career", "software-engineering", "code-generation", "copilot", "threat-assessment", "skill-development"]
+tags: ["ai", "career", "software-engineering"]
 draft: true
 sources:
   - book: "Unite the Tribes"
