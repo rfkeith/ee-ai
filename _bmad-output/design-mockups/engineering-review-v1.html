@@ -1,0 +1,1247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Engineering Excellence — Design Mockup v1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f5f0e8;
+      --paper-deep: #ece4d4;
+      --ink: #1a1410;
+      --ink-soft: #2a221c;
+      --muted: #6b5e54;
+      --muted-soft: #8a7d70;
+      --rule: #d4c8b8;
+      --rule-soft: #e4dcca;
+      --accent: #5b21b6;
+      --accent-deep: #4c1d95;
+      --accent-pale: #e9e1f4;
+      --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+      --display: "Fraunces", "Source Serif 4", Georgia, serif;
+      --mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+      --measure: 38rem;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.6;
+      font-variant-numeric: oldstyle-nums proportional-nums;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    }
+
+    /* Paper texture — a very subtle warm noise to break the flatness */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0.035 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      opacity: 0.6;
+      mix-blend-mode: multiply;
+      z-index: 1;
+    }
+
+    main, header, footer, section, article { position: relative; z-index: 2; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ========================================================= */
+    /* MASTHEAD BAR — the small running header above the title */
+    /* ========================================================= */
+    .masthead-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.9rem 0;
+    }
+    .masthead-bar .inner {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .masthead-bar .brand-monogram {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .masthead-bar .right { display: flex; gap: 1.4rem; }
+    .masthead-bar a:hover { color: var(--accent); }
+
+    /* ========================================================= */
+    /* TITLE BLOCK — the journal masthead */
+    /* ========================================================= */
+    .title-block {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 4.5rem 2rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-family: var(--display);
+      font-weight: 350;
+      font-size: clamp(3.5rem, 9.5vw, 9.5rem);
+      line-height: 0.88;
+      letter-spacing: -0.045em;
+      font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+      color: var(--ink);
+    }
+    .title-block h1 .second {
+      display: block;
+      font-style: italic;
+      font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
+      font-weight: 300;
+      padding-left: 0.6em;
+      color: var(--ink-soft);
+    }
+
+    /* Per-letter reveal on load */
+    .title-block h1 .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.15em);
+      animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .issue-chrome {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.7;
+      padding-bottom: 0.4rem;
+    }
+    .issue-chrome .label { color: var(--muted-soft); }
+    .issue-chrome .value { color: var(--ink); display: block; font-size: 0.85rem; }
+    .issue-chrome .rule {
+      width: 4rem;
+      height: 1px;
+      background: var(--ink);
+      margin: 0.6rem 0 0.6rem auto;
+    }
+
+    /* ========================================================= */
+    /* EPIGRAPH ROW — manifesto sentence under the masthead */
+    /* ========================================================= */
+    .epigraph {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 2.2rem 2rem 2.6rem;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: baseline;
+    }
+    .epigraph .label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .epigraph .text {
+      font-family: var(--display);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      line-height: 1.32;
+      color: var(--ink-soft);
+      letter-spacing: -0.005em;
+      font-variation-settings: "opsz" 36, "SOFT" 50;
+    }
+    .epigraph .text em {
+      font-style: normal;
+      color: var(--accent-deep);
+      font-weight: 400;
+    }
+
+    /* ========================================================= */
+    /* LEAD ESSAY — the featured article block */
+    /* ========================================================= */
+    .lead-section {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 9rem 1fr 16rem;
+      gap: 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section-marker {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: 0.5rem;
+    }
+    .section-marker .pilcrow {
+      color: var(--accent);
+      font-family: var(--display);
+      font-size: 1.4rem;
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .lead-essay .meta-row {
+      display: flex;
+      gap: 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      align-items: center;
+    }
+    .lead-essay .meta-row .dept {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .lead-essay .meta-row .dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--muted-soft);
+    }
+    .lead-essay h2 {
+      margin: 0 0 1.1rem;
+      font-family: var(--display);
+      font-weight: 350;
+      font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      font-variation-settings: "opsz" 80, "SOFT" 40;
+      color: var(--ink);
+      max-width: 18ch;
+    }
+    .lead-essay h2 a:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 0.12em;
+    }
+    .lead-essay .standfirst {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.25rem;
+      line-height: 1.45;
+      color: var(--muted);
+      max-width: 38ch;
+      margin: 0 0 1.6rem;
+      font-variation-settings: "opsz" 36;
+    }
+    .lead-essay .excerpt {
+      font-size: 1.02rem;
+      line-height: 1.7;
+      max-width: var(--measure);
+      color: var(--ink-soft);
+      margin: 0;
+      column-count: 1;
+    }
+    .lead-essay .excerpt::first-letter {
+      font-family: var(--display);
+      font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      font-size: 5em;
+      float: left;
+      line-height: 0.86;
+      padding-right: 0.12em;
+      padding-top: 0.04em;
+      color: var(--ink);
+    }
+    .lead-essay .continue {
+      display: inline-block;
+      margin-top: 1.4rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+    }
+    .lead-essay .continue:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+    .lead-sources {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .lead-sources .label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted-soft);
+      display: block;
+      margin-bottom: 0.7rem;
+    }
+    .lead-sources ul {
+      list-style: none;
+      padding: 0; margin: 0;
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 350;
+      font-size: 0.98rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      font-variation-settings: "opsz" 14;
+    }
+    .lead-sources li { margin-bottom: 0.5rem; padding-left: 1rem; position: relative; }
+    .lead-sources li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-style: normal;
+    }
+    .lead-sources li .author {
+      display: block;
+      font-style: normal;
+      font-family: var(--serif);
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      margin-top: 0.05rem;
+    }
+
+    /* ========================================================= */
+    /* ARCHIVE GRID — the dense list of all articles */
+    /* ========================================================= */
+    .archive-section {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 9rem 1fr;
+      gap: 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule);
+    }
+    .archive-card {
+      padding: 1.6rem 1.4rem 1.8rem;
+      border-bottom: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+      transition: background 0.4s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 18rem;
+    }
+    .archive-card:nth-child(3n) { border-right: none; }
+    .archive-card:hover { background: var(--paper-deep); }
+    .archive-card .num {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      color: var(--muted-soft);
+      margin-bottom: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .archive-card .num .dept {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .archive-card h3 {
+      margin: 0 0 0.7rem;
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.35rem;
+      line-height: 1.18;
+      letter-spacing: -0.018em;
+      font-variation-settings: "opsz" 48, "SOFT" 40;
+      color: var(--ink);
+    }
+    .archive-card h3 a:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 1.5px;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 0.12em;
+    }
+    .archive-card p {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0 0 1rem;
+      flex: 1;
+    }
+    .archive-card .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted-soft);
+      padding-top: 0.6rem;
+      border-top: 1px dashed var(--rule);
+    }
+    .archive-card .tags {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .archive-card .tag {
+      color: var(--accent);
+    }
+    .archive-card .tag::before { content: "#"; opacity: 0.6; margin-right: 1px; }
+
+    /* ========================================================= */
+    /* BIBLIOGRAPHY — sources surfaced */
+    /* ========================================================= */
+    .bibliography {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 9rem 1fr;
+      gap: 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .biblio-intro {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: var(--muted);
+      max-width: 42ch;
+      margin-bottom: 2rem;
+      font-variation-settings: "opsz" 36;
+    }
+    .biblio-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem 3rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 1.6rem;
+    }
+    .biblio-entry {
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 1.2rem;
+      align-items: baseline;
+    }
+    .biblio-entry .index {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--muted-soft);
+      letter-spacing: 0.16em;
+    }
+    .biblio-entry .book {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.05rem;
+      line-height: 1.3;
+      color: var(--ink);
+      font-variation-settings: "opsz" 24;
+    }
+    .biblio-entry .author {
+      display: block;
+      font-style: normal;
+      font-family: var(--serif);
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.18rem;
+      letter-spacing: 0.01em;
+    }
+    .biblio-entry .cited {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.35rem;
+    }
+
+    /* ========================================================= */
+    /* DEPARTMENTS — the four categories */
+    /* ========================================================= */
+    .departments {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 9rem 1fr;
+      gap: 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .dept-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--ink);
+    }
+    .dept-card {
+      padding: 1.6rem 1.4rem 1.6rem;
+      border-right: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: background 0.3s ease;
+    }
+    .dept-card:last-child { border-right: none; }
+    .dept-card:hover { background: var(--paper-deep); }
+    .dept-card .dept-num {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted-soft);
+    }
+    .dept-card .dept-name {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.8rem;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-variation-settings: "opsz" 60, "SOFT" 30;
+      color: var(--ink);
+    }
+    .dept-card .dept-count {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+    .dept-card .dept-desc {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ========================================================= */
+    /* COLOPHON / FOOTER */
+    /* ========================================================= */
+    .colophon {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 9rem 1fr 1fr;
+      gap: 3rem;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .colophon h4 {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0 0 0.8rem;
+      font-weight: 600;
+    }
+    .colophon p { margin: 0 0 1rem; max-width: 38ch; }
+    .colophon a { color: var(--accent); }
+    .colophon a:hover { color: var(--ink); }
+
+    /* ========================================================= */
+    /* DIVIDER + ARTICLE PAGE PREVIEW */
+    /* ========================================================= */
+    .demo-divider {
+      max-width: 78rem;
+      margin: 4rem auto 0;
+      padding: 2rem;
+      border-top: 2px solid var(--ink);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+    .demo-divider .note {
+      display: inline-block;
+      background: var(--paper);
+      padding: 0 1rem;
+      transform: translateY(-1.7rem);
+    }
+
+    /* === ARTICLE PAGE === */
+    .article-view {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+    .article-header {
+      display: grid;
+      grid-template-columns: 9rem 1fr;
+      gap: 3rem;
+      padding-bottom: 2.4rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 3rem;
+    }
+    .article-meta {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+    .article-meta .dept { color: var(--accent); font-weight: 600; }
+    .article-meta .rule {
+      width: 3rem;
+      height: 1px;
+      background: var(--ink);
+      margin: 0.8rem 0;
+    }
+
+    .article-title-block h1 {
+      margin: 0 0 1.2rem;
+      font-family: var(--display);
+      font-weight: 350;
+      font-size: clamp(2.6rem, 5.5vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.028em;
+      font-variation-settings: "opsz" 100, "SOFT" 40;
+      color: var(--ink);
+      max-width: 16ch;
+    }
+    .article-title-block .standfirst {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.5rem;
+      line-height: 1.4;
+      color: var(--muted);
+      max-width: 42ch;
+      margin: 0 0 2rem;
+      font-variation-settings: "opsz" 36;
+    }
+    .byline-row {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .byline-row .author {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .byline-row .dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--muted-soft);
+    }
+    .article-tags {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+    .article-tags span::before { content: "#"; opacity: 0.6; margin-right: 1px; }
+
+    .article-body {
+      display: grid;
+      grid-template-columns: 9rem 1fr 12rem;
+      gap: 3rem;
+    }
+
+    .gutter {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      color: var(--muted-soft);
+      text-align: right;
+      padding-top: 0.4rem;
+      position: sticky;
+      top: 1rem;
+      align-self: start;
+    }
+    .gutter .num-marker {
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .gutter .num-marker.active { color: var(--accent); }
+    .gutter .pilcrow {
+      font-family: var(--display);
+      font-size: 1.3rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-top: 1.6rem;
+      display: block;
+    }
+
+    .article-prose {
+      max-width: var(--measure);
+      font-size: 1.12rem;
+      line-height: 1.72;
+      color: var(--ink-soft);
+    }
+    .article-prose > *:first-child::first-letter {
+      font-family: var(--display);
+      font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+      font-size: 5.2em;
+      float: left;
+      line-height: 0.86;
+      padding-right: 0.14em;
+      padding-top: 0.05em;
+      color: var(--accent-deep);
+    }
+    .article-prose p { margin: 0 0 1.4rem; }
+    .article-prose p strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .article-prose p em {
+      font-style: italic;
+      color: var(--ink);
+    }
+    .article-prose h2 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.85rem;
+      line-height: 1.15;
+      letter-spacing: -0.018em;
+      font-variation-settings: "opsz" 48, "SOFT" 30;
+      color: var(--ink);
+      margin: 3rem 0 1.2rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--rule);
+      position: relative;
+    }
+    .article-prose h2::before {
+      content: "§";
+      position: absolute;
+      top: 1.4rem;
+      left: -2.4rem;
+      font-family: var(--display);
+      font-size: 1.5rem;
+      color: var(--accent);
+      font-weight: 300;
+    }
+    .article-prose a {
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent-pale);
+      transition: border-color 0.2s ease;
+    }
+    .article-prose a:hover { border-bottom-color: var(--accent); }
+    .article-prose blockquote {
+      margin: 2rem 0;
+      padding: 0 0 0 1.6rem;
+      border-left: 2px solid var(--accent);
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 1.18rem;
+      line-height: 1.5;
+      color: var(--ink);
+      font-variation-settings: "opsz" 24;
+    }
+
+    .marginalia {
+      padding-top: 0.5rem;
+      font-size: 0.84rem;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+    .marginalia .pull {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 350;
+      font-size: 1.15rem;
+      line-height: 1.4;
+      color: var(--ink-soft);
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+      font-variation-settings: "opsz" 24;
+    }
+    .marginalia .pull-attr {
+      display: block;
+      font-family: var(--mono);
+      font-style: normal;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted-soft);
+      margin-top: 0.8rem;
+    }
+
+    /* ========================================================= */
+    /* Responsive collapse — keep editorial feel on mobile */
+    /* ========================================================= */
+    @media (max-width: 920px) {
+      .title-block { grid-template-columns: 1fr; gap: 1.5rem; }
+      .issue-chrome { text-align: left; }
+      .issue-chrome .rule { margin-left: 0; }
+      .epigraph { grid-template-columns: 1fr; gap: 1rem; }
+      .lead-section { grid-template-columns: 1fr; gap: 2rem; }
+      .lead-sources { border-top: 1px solid var(--rule); padding-top: 1.4rem; }
+      .archive-section, .bibliography, .departments, .colophon { grid-template-columns: 1fr; gap: 1.5rem; }
+      .archive-grid { grid-template-columns: 1fr; }
+      .archive-card { border-right: none !important; }
+      .biblio-list { grid-template-columns: 1fr; }
+      .dept-grid { grid-template-columns: repeat(2, 1fr); }
+      .dept-card:nth-child(2n) { border-right: none; }
+      .article-header { grid-template-columns: 1fr; }
+      .article-body { grid-template-columns: 1fr; }
+      .gutter { display: none; }
+      .marginalia { border-top: 1px solid var(--rule); padding-top: 1.4rem; margin-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====================== HOMEPAGE ====================== -->
+
+  <header class="masthead-bar">
+    <div class="inner">
+      <a class="brand-monogram" href="#">EE — The Engineering Review</a>
+      <div class="right">
+        <a href="#">Subscribe</a>
+        <a href="#">Archive</a>
+        <a href="#">About</a>
+        <span>Wed · 26 May 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="title-block">
+    <h1>
+      <span class="letter" style="animation-delay:0.05s">E</span><span class="letter" style="animation-delay:0.08s">n</span><span class="letter" style="animation-delay:0.11s">g</span><span class="letter" style="animation-delay:0.14s">i</span><span class="letter" style="animation-delay:0.17s">n</span><span class="letter" style="animation-delay:0.20s">e</span><span class="letter" style="animation-delay:0.23s">e</span><span class="letter" style="animation-delay:0.26s">r</span><span class="letter" style="animation-delay:0.29s">i</span><span class="letter" style="animation-delay:0.32s">n</span><span class="letter" style="animation-delay:0.35s">g</span>
+      <span class="second">
+        <span class="letter" style="animation-delay:0.42s">E</span><span class="letter" style="animation-delay:0.45s">x</span><span class="letter" style="animation-delay:0.48s">c</span><span class="letter" style="animation-delay:0.51s">e</span><span class="letter" style="animation-delay:0.54s">l</span><span class="letter" style="animation-delay:0.57s">l</span><span class="letter" style="animation-delay:0.60s">e</span><span class="letter" style="animation-delay:0.63s">n</span><span class="letter" style="animation-delay:0.66s">c</span><span class="letter" style="animation-delay:0.69s">e</span>
+      </span>
+    </h1>
+    <div class="issue-chrome">
+      <span class="label">Volume</span>
+      <span class="value">I</span>
+      <div class="rule"></div>
+      <span class="label">Issue</span>
+      <span class="value">002</span>
+    </div>
+  </section>
+
+  <section class="epigraph">
+    <div class="label">¶ From the editor</div>
+    <p class="text">
+      Most engineering advice is half right. <em>These essays try to give you the other half</em> —
+      grounded in books, written for engineers building real systems inside real organizations.
+    </p>
+  </section>
+
+  <!-- ============= LEAD ESSAY ============= -->
+  <section class="lead-section">
+    <div class="section-marker">
+      <span class="pilcrow">¶</span>
+      The Lead<br>Essay
+    </div>
+
+    <article class="lead-essay">
+      <div class="meta-row">
+        <span class="dept">Career</span>
+        <span class="dot"></span>
+        <span>No. 003</span>
+        <span class="dot"></span>
+        <span>08 Feb 2026</span>
+        <span class="dot"></span>
+        <span>14 min read</span>
+      </div>
+      <h2><a href="#article">From Senior to Staff</a></h2>
+      <p class="standfirst">
+        What you need to change — and what your organization actually needs to provide.
+        The jump fails for two reasons and most advice only covers one.
+      </p>
+      <p class="excerpt">
+        Most "how to get to staff" articles give you one side of the story — think bigger,
+        work across teams, drive strategy. That's all true, but it's only half of it.
+        Half the story is worse than no story, because it lets you blame yourself for things
+        that aren't your fault. Getting to staff is a two-player game. You need to change
+        how you work, and your company needs to actually have a real staff role with real
+        work attached to it.
+      </p>
+      <a href="#article" class="continue">Continue reading →</a>
+    </article>
+
+    <aside class="lead-sources">
+      <span class="label">Sources cited</span>
+      <ul>
+        <li>
+          Unite the Tribes
+          <span class="author">Christopher Duncan</span>
+        </li>
+        <li>
+          Never Lead Alone
+          <span class="author">Keith Ferrazzi</span>
+        </li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- ============= ARCHIVE GRID ============= -->
+  <section class="archive-section">
+    <div class="section-marker">
+      <span class="pilcrow">¶</span>
+      In this<br>issue
+    </div>
+    <div class="archive-grid">
+
+      <article class="archive-card">
+        <div class="num">
+          <span class="dept">Leadership</span>
+          <span>No. 001</span>
+        </div>
+        <h3><a href="#">Shielding vs. Exposure: When to Protect Your Team and When to Let Them See the Mess</a></h3>
+        <p>
+          The popular advice to shield your team is half the story. Over-protected
+          engineers can't grow into leaders — selective exposure is how you build them.
+        </p>
+        <div class="footer">
+          <div class="tags">
+            <span class="tag">leadership</span>
+            <span class="tag">team-management</span>
+          </div>
+          <span>07 Feb · 11 min</span>
+        </div>
+      </article>
+
+      <article class="archive-card">
+        <div class="num">
+          <span class="dept">Best Practices</span>
+          <span>No. 002</span>
+        </div>
+        <h3><a href="#">Pre-Mortems for Architecture Decisions</a></h3>
+        <p>
+          A concrete framework for stress-testing architecture decisions before they ship —
+          with an enterprise checklist covering scale, security, compliance, and team capability.
+        </p>
+        <div class="footer">
+          <div class="tags">
+            <span class="tag">architecture</span>
+            <span class="tag">pre-mortem</span>
+          </div>
+          <span>07 Feb · 18 min</span>
+        </div>
+      </article>
+
+      <article class="archive-card">
+        <div class="num">
+          <span class="dept">AI</span>
+          <span>No. 004</span>
+        </div>
+        <h3><a href="#">What AI Actually Threatens — and What It Doesn't</a></h3>
+        <p>
+          A blunt, activity-by-activity breakdown of what AI can replace today,
+          what it can't, and which engineering skills become more or less valuable.
+        </p>
+        <div class="footer">
+          <div class="tags">
+            <span class="tag">ai</span>
+            <span class="tag">career</span>
+          </div>
+          <span>07 Feb · 22 min</span>
+        </div>
+      </article>
+
+      <article class="archive-card">
+        <div class="num">
+          <span class="dept">Career</span>
+          <span>No. 005</span>
+        </div>
+        <h3><a href="#">The Quiet Skills That Compound</a></h3>
+        <p>
+          Reading code well. Writing a useful PR description. Knowing when to push back.
+          The unglamorous habits that separate competent engineers from indispensable ones.
+        </p>
+        <div class="footer">
+          <div class="tags">
+            <span class="tag">career-growth</span>
+            <span class="tag">craft</span>
+          </div>
+          <span>Coming soon</span>
+        </div>
+      </article>
+
+      <article class="archive-card">
+        <div class="num">
+          <span class="dept">Leadership</span>
+          <span>No. 006</span>
+        </div>
+        <h3><a href="#">Performance Reviews That Don't Lie</a></h3>
+        <p>
+          Most performance reviews are theatre. A short field-guide to making them
+          truthful, useful, and survivable — for everyone in the room.
+        </p>
+        <div class="footer">
+          <div class="tags">
+            <span class="tag">leadership</span>
+            <span class="tag">reviews</span>
+          </div>
+          <span>Coming soon</span>
+        </div>
+      </article>
+
+      <article class="archive-card">
+        <div class="num">
+          <span class="dept">Best Practices</span>
+          <span>No. 007</span>
+        </div>
+        <h3><a href="#">The Two Tests Every Design Doc Should Pass</a></h3>
+        <p>
+          The first test is whether someone disagrees in writing. The second is whether
+          you can find the dropped requirement on page seven. Most docs fail both.
+        </p>
+        <div class="footer">
+          <div class="tags">
+            <span class="tag">design-docs</span>
+            <span class="tag">writing</span>
+          </div>
+          <span>Coming soon</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============= DEPARTMENTS ============= -->
+  <section class="departments">
+    <div class="section-marker">
+      <span class="pilcrow">¶</span>
+      Departments
+    </div>
+    <div class="dept-grid">
+      <a class="dept-card" href="#">
+        <span class="dept-num">No. I</span>
+        <span class="dept-name">Leadership</span>
+        <span class="dept-count">2 essays</span>
+        <span class="dept-desc">Building teams, shielding well, exposing wisely.</span>
+      </a>
+      <a class="dept-card" href="#">
+        <span class="dept-num">No. II</span>
+        <span class="dept-name">Best<br>Practices</span>
+        <span class="dept-count">2 essays</span>
+        <span class="dept-desc">Habits, frameworks, and small acts of craft.</span>
+      </a>
+      <a class="dept-card" href="#">
+        <span class="dept-num">No. III</span>
+        <span class="dept-name">Career</span>
+        <span class="dept-count">2 essays</span>
+        <span class="dept-desc">Honest accounts of the jumps that aren't easy.</span>
+      </a>
+      <a class="dept-card" href="#">
+        <span class="dept-num">No. IV</span>
+        <span class="dept-name">AI</span>
+        <span class="dept-count">1 essay</span>
+        <span class="dept-desc">What changes, what doesn't, what to do now.</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============= BIBLIOGRAPHY ============= -->
+  <section class="bibliography">
+    <div class="section-marker">
+      <span class="pilcrow">¶</span>
+      Working<br>Bibliography
+    </div>
+    <div>
+      <p class="biblio-intro">
+        Every essay is grounded in real sources — usually books on leadership,
+        organizational behavior, or the craft of engineering. So you can check the thinking yourself.
+      </p>
+      <div class="biblio-list">
+        <div class="biblio-entry">
+          <span class="index">01</span>
+          <div>
+            <span class="book">Unite the Tribes</span>
+            <span class="author">Christopher Duncan</span>
+            <span class="cited">Cited in 3 essays</span>
+          </div>
+        </div>
+        <div class="biblio-entry">
+          <span class="index">02</span>
+          <div>
+            <span class="book">Never Lead Alone</span>
+            <span class="author">Keith Ferrazzi</span>
+            <span class="cited">Cited in 3 essays</span>
+          </div>
+        </div>
+        <div class="biblio-entry">
+          <span class="index">03</span>
+          <div>
+            <span class="book">Staff Engineer</span>
+            <span class="author">Will Larson</span>
+            <span class="cited">Cited in 1 essay</span>
+          </div>
+        </div>
+        <div class="biblio-entry">
+          <span class="index">04</span>
+          <div>
+            <span class="book">An Elegant Puzzle</span>
+            <span class="author">Will Larson</span>
+            <span class="cited">Cited in 1 essay</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= COLOPHON ============= -->
+  <footer class="colophon">
+    <div class="section-marker">
+      <span class="pilcrow">¶</span>
+      Colophon
+    </div>
+    <div>
+      <h4>The Review</h4>
+      <p>
+        Engineering Excellence is an essay journal for senior engineers, tech leads, and
+        engineering managers working inside large organizations. New essays published monthly.
+      </p>
+      <p>© 2026 — All rights reserved.</p>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <p>
+        <a href="#">RSS feed</a> · <a href="#">Newsletter</a> · <a href="#">GitHub</a> · <a href="#">Mastodon</a>
+      </p>
+      <h4 style="margin-top:1.4rem">Set in</h4>
+      <p>Fraunces &amp; Source Serif 4, with JetBrains Mono.</p>
+    </div>
+  </footer>
+
+
+  <!-- ====================== ARTICLE PAGE PREVIEW ====================== -->
+
+  <div class="demo-divider">
+    <span class="note">↓ Article page treatment ↓</span>
+  </div>
+
+  <section class="article-view" id="article">
+    <header class="article-header">
+      <div class="article-meta">
+        <span class="dept">Career</span><br>
+        Essay No. 003
+        <div class="rule"></div>
+        Vol. I · Iss. 002<br>
+        08 Feb 2026<br>
+        14 min read
+      </div>
+      <div class="article-title-block">
+        <h1>From Senior to Staff</h1>
+        <p class="standfirst">
+          What you need to change — and what your organization actually needs to provide.
+          The jump fails for two reasons and most advice only covers one.
+        </p>
+        <div class="byline-row">
+          <span>By <span class="author">Robert</span></span>
+          <span class="dot"></span>
+          <span>Engineering Excellence</span>
+        </div>
+        <div class="article-tags">
+          <span>career-growth</span>
+          <span>staff-engineer</span>
+          <span>promotion</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="article-body">
+      <aside class="gutter">
+        <span class="num-marker active">§ 01</span>
+        <span class="num-marker">§ 02</span>
+        <span class="num-marker">§ 03</span>
+        <span class="num-marker">§ 04</span>
+        <span class="pilcrow">¶</span>
+      </aside>
+
+      <div class="article-prose">
+        <p>
+          Most "how to get to staff" articles give you one side of the story — think bigger,
+          work across teams, drive strategy. That's all true, but it's only half of it.
+          <strong>Half the story is worse than no story, because it lets you blame yourself
+          for things that aren't your fault.</strong>
+        </p>
+        <p>
+          Getting to staff is a two-player game. You need to change how you work.
+          <em>And</em> your company needs to actually have a real staff role with real
+          work attached to it. If either side isn't holding up their end, you're stuck —
+          and I've watched talented engineers burn years chasing a title that didn't
+          actually exist at their company.
+        </p>
+
+        <h2>What You Need to Change</h2>
+        <p>
+          The behavioral shifts are well-trodden ground. You stop measuring your value
+          by lines of code and start measuring it by problems eliminated. You stop being
+          the smartest person in the room and start making the room smarter. You learn
+          to write — properly, with structure, because written artifacts are how staff
+          engineers scale.
+        </p>
+        <blockquote>
+          The senior engineer's job is to do the work well.
+          The staff engineer's job is to make sure the right work gets done.
+        </blockquote>
+        <p>
+          The honest part is that this transition is uncomfortable, and most of the
+          discomfort comes from giving up the things that made you good at being senior.
+          The fast hands. The deep flow. The satisfying close of a hard problem on Friday
+          afternoon. Staff work is slower, more diffuse, and most of your wins look like
+          things <em>not</em> happening — a migration that didn't go sideways, a contract
+          that didn't get signed, a team that didn't burn out.
+        </p>
+      </div>
+
+      <aside class="marginalia">
+        <span class="pull">
+          "Half the story is worse than no story — because it lets you blame yourself for things that aren't your fault."
+          <span class="pull-attr">— from § 01</span>
+        </span>
+      </aside>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,1121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Engineering Excellence — Design Mockup v2 (Handbook)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fafaf7;
+      --paper-deep: #f1efe9;
+      --paper-warm: #f5f3ec;
+      --ink: #0a0a0a;
+      --ink-soft: #1f1f1f;
+      --muted: #5e5e5e;
+      --muted-soft: #8a8a8a;
+      --rule: #d8d6d0;
+      --rule-strong: #0a0a0a;
+      --accent: #5b21b6;
+      --accent-deep: #4c1d95;
+      --accent-pale: #ece5f7;
+      --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+      --sans: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
+      --mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.55;
+      font-variant-numeric: tabular-nums;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "kern" 1, "liga" 1;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================================ */
+    /* MASTHEAD BAR — single thin row, brand left, nav right        */
+    /* ============================================================ */
+    .masthead {
+      border-bottom: 1px solid var(--rule);
+      background: var(--paper);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .masthead .inner {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+      font-family: var(--serif);
+    }
+    .brand .mark {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--paper);
+      background: var(--ink);
+      padding: 0.3rem 0.45rem;
+      line-height: 1;
+    }
+    .brand .name {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.05rem;
+      font-variation-settings: "opsz" 24;
+      letter-spacing: -0.005em;
+    }
+    .brand .name em {
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .masthead nav ul {
+      list-style: none;
+      margin: 0; padding: 0;
+      display: flex;
+      gap: 1.4rem;
+    }
+    .masthead nav a {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.15rem 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .masthead nav a:hover, .masthead nav a.active {
+      color: var(--ink);
+      border-bottom-color: var(--accent);
+    }
+    .masthead .ticker {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted-soft);
+    }
+
+    /* ============================================================ */
+    /* DEK BAND — one-line tagline directly under masthead           */
+    /* ============================================================ */
+    .dek-band {
+      border-bottom: 1px solid var(--rule);
+      background: var(--paper-warm);
+    }
+    .dek-band .inner {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 0.7rem 2rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .dek-band .dek {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 350;
+      font-size: 0.98rem;
+      color: var(--ink-soft);
+      font-variation-settings: "opsz" 18;
+    }
+    .dek-band .dek strong {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .dek-band .meta {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ============================================================ */
+    /* MAIN GRID — table-of-contents reading list                    */
+    /* ============================================================ */
+    .stage {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 18rem;
+      gap: 0;
+    }
+    .stage > .col-main { border-right: 1px solid var(--rule); padding-right: 2.5rem; }
+    .stage > .col-side { padding-left: 2.5rem; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.4rem 0 1rem;
+      border-bottom: 2px solid var(--rule-strong);
+    }
+    .section-head .title {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: -0.005em;
+      font-variation-settings: "opsz" 24;
+    }
+    .section-head .title .pre {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-right: 0.6rem;
+      font-weight: 600;
+    }
+    .section-head .count {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* === reading list entries === */
+    .reading-list {
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+    .reading-entry {
+      display: grid;
+      grid-template-columns: 3.4rem 1fr 6rem;
+      gap: 1.4rem;
+      padding: 1.3rem 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: baseline;
+      transition: background 0.2s ease;
+      position: relative;
+    }
+    .reading-entry:hover {
+      background: var(--paper-warm);
+      margin: 0 -1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .reading-entry .num {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--muted-soft);
+      font-weight: 500;
+      padding-top: 0.25rem;
+    }
+    .reading-entry .body { min-width: 0; }
+    .reading-entry .head-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.3rem;
+    }
+    .reading-entry .dept {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      padding: 0.15rem 0.4rem;
+      background: var(--accent-pale);
+      border-radius: 1px;
+    }
+    .reading-entry h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.45rem;
+      line-height: 1.18;
+      letter-spacing: -0.012em;
+      font-variation-settings: "opsz" 40;
+      color: var(--ink);
+      display: inline;
+    }
+    .reading-entry h2 a {
+      background-image: linear-gradient(var(--accent), var(--accent));
+      background-size: 0 1.5px;
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      transition: background-size 0.3s ease;
+      padding-bottom: 2px;
+    }
+    .reading-entry:hover h2 a { background-size: 100% 1.5px; }
+    .reading-entry .dek {
+      font-family: var(--serif);
+      font-weight: 350;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--muted);
+      margin: 0.2rem 0 0.6rem;
+      font-variation-settings: "opsz" 18;
+      max-width: 60ch;
+    }
+    .reading-entry .foot-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      color: var(--muted-soft);
+      flex-wrap: wrap;
+    }
+    .reading-entry .foot-row .dot {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--rule);
+    }
+    .reading-entry .foot-row .tag { color: var(--accent); }
+    .reading-entry .foot-row .tag::before { content: "#"; opacity: 0.6; }
+    .reading-entry .right {
+      text-align: right;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      padding-top: 0.4rem;
+      line-height: 1.5;
+    }
+    .reading-entry .right .pages {
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .reading-entry .right .pages-label {
+      color: var(--muted-soft);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .reading-entry .right .arrow {
+      display: block;
+      margin-top: 0.5rem;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    /* Featured/lead entry — slightly larger treatment */
+    .reading-entry.is-lead {
+      padding: 1.8rem 0;
+      background: var(--paper-warm);
+      margin: 0 -1.4rem;
+      padding-left: 1.4rem;
+      padding-right: 1.4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .reading-entry.is-lead h2 {
+      font-size: 1.95rem;
+      line-height: 1.1;
+      letter-spacing: -0.018em;
+      font-variation-settings: "opsz" 60;
+    }
+    .reading-entry.is-lead .lead-flag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .reading-entry.is-lead .excerpt {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin: 0.6rem 0 0.6rem;
+      max-width: 64ch;
+      font-variation-settings: "opsz" 20;
+    }
+    .reading-entry.is-lead .excerpt::first-letter {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 3.4em;
+      float: left;
+      line-height: 0.86;
+      padding-right: 0.1em;
+      padding-top: 0.04em;
+      color: var(--accent-deep);
+      font-variation-settings: "opsz" 60;
+    }
+
+    /* ============================================================ */
+    /* SIDEBAR                                                       */
+    /* ============================================================ */
+    .side-block { padding: 1.4rem 0 2rem; border-bottom: 1px solid var(--rule); }
+    .side-block:last-child { border-bottom: none; }
+    .side-block h3 {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0 0 1rem;
+      font-weight: 600;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .side-block h3 .accent {
+      color: var(--accent);
+      margin-right: 0.4rem;
+    }
+
+    .dept-rail {
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+    .dept-rail li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.55rem 0;
+      border-bottom: 1px dotted var(--rule);
+    }
+    .dept-rail li:last-child { border-bottom: none; }
+    .dept-rail .name {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.02rem;
+      color: var(--ink);
+      font-variation-settings: "opsz" 20;
+    }
+    .dept-rail .name:hover { color: var(--accent); }
+    .dept-rail .count {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--muted-soft);
+    }
+
+    .biblio {
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+    .biblio li {
+      padding: 0.6rem 0;
+      border-bottom: 1px dotted var(--rule);
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+    .biblio li:last-child { border-bottom: none; }
+    .biblio .book {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 450;
+      color: var(--ink);
+      font-variation-settings: "opsz" 18;
+    }
+    .biblio .author {
+      display: block;
+      font-family: var(--serif);
+      font-style: normal;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+    .biblio .cited {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.3rem;
+    }
+
+    .subscribe {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.4rem;
+      margin-top: 1rem;
+    }
+    .subscribe h4 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin: 0 0 0.4rem;
+      font-variation-settings: "opsz" 24;
+    }
+    .subscribe p {
+      font-family: var(--serif);
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: #b5b5b5;
+      margin: 0 0 0.9rem;
+    }
+    .subscribe form {
+      display: flex;
+      gap: 0;
+      border: 1px solid #404040;
+    }
+    .subscribe input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 0.55rem 0.7rem;
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+    }
+    .subscribe input::placeholder { color: #707070; }
+    .subscribe input:focus { outline: none; background: #1a1a1a; }
+    .subscribe button {
+      background: var(--accent);
+      color: var(--paper);
+      border: none;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0 0.9rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .subscribe button:hover { background: var(--accent-deep); }
+
+    /* ============================================================ */
+    /* FOOTER                                                        */
+    /* ============================================================ */
+    .footnote {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      border-top: 2px solid var(--rule-strong);
+      margin-top: 3rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .footnote a:hover { color: var(--accent); }
+    .footnote .colophon-note {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.85rem;
+      letter-spacing: 0;
+      color: var(--muted-soft);
+      max-width: 36ch;
+      font-variation-settings: "opsz" 18;
+    }
+
+    /* ============================================================ */
+    /* ARTICLE PAGE PREVIEW                                          */
+    /* ============================================================ */
+    .demo-divider {
+      max-width: 78rem;
+      margin: 4rem auto 0;
+      padding: 2rem;
+      border-top: 2px solid var(--rule-strong);
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+    .demo-divider .note {
+      display: inline-block;
+      background: var(--paper);
+      padding: 0 1rem;
+      transform: translateY(-1.7rem);
+    }
+
+    .article-view {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 18rem;
+      gap: 0;
+    }
+    .article-view > .col-main { border-right: 1px solid var(--rule); padding-right: 2.5rem; padding-top: 2.5rem; }
+    .article-view > .col-side { padding-left: 2.5rem; padding-top: 2.5rem; }
+
+    .article-header {
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .article-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.3rem;
+      flex-wrap: wrap;
+    }
+    .article-meta-row .dept {
+      color: var(--accent);
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      background: var(--accent-pale);
+    }
+    .article-meta-row .dot {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--rule-strong);
+    }
+    .article-h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.022em;
+      font-variation-settings: "opsz" 80;
+      color: var(--ink);
+      margin: 0 0 1rem;
+      max-width: 22ch;
+    }
+    .article-standfirst {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 350;
+      font-size: 1.3rem;
+      line-height: 1.42;
+      color: var(--muted);
+      max-width: 56ch;
+      margin: 0 0 1.6rem;
+      font-variation-settings: "opsz" 30;
+    }
+    .article-byline {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .article-byline .author { color: var(--ink); font-weight: 600; }
+    .article-tags {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+    }
+    .article-tags a::before { content: "#"; opacity: 0.6; }
+
+    .article-prose {
+      max-width: 38rem;
+      font-size: 1.12rem;
+      line-height: 1.72;
+      color: var(--ink-soft);
+    }
+    .article-prose > p:first-of-type::first-letter {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-variation-settings: "opsz" 72;
+      font-size: 4.4em;
+      float: left;
+      line-height: 0.88;
+      padding-right: 0.12em;
+      padding-top: 0.05em;
+      color: var(--accent-deep);
+    }
+    .article-prose p { margin: 0 0 1.3rem; }
+    .article-prose p strong { color: var(--ink); font-weight: 600; }
+    .article-prose p em { color: var(--ink); font-style: italic; }
+    .article-prose h2 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.7rem;
+      line-height: 1.18;
+      letter-spacing: -0.014em;
+      font-variation-settings: "opsz" 48;
+      color: var(--ink);
+      margin: 2.6rem 0 1rem;
+      padding-top: 1.4rem;
+      border-top: 2px solid var(--rule-strong);
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+    }
+    .article-prose h2 .sect-num {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+    }
+    .article-prose blockquote {
+      margin: 1.6rem 0;
+      padding: 0 0 0 1.3rem;
+      border-left: 3px solid var(--accent);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.18rem;
+      line-height: 1.5;
+      color: var(--ink);
+      font-variation-settings: "opsz" 24;
+    }
+    .article-prose a {
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent-pale);
+    }
+    .article-prose a:hover { border-bottom-color: var(--accent); }
+
+    .toc-sticky {
+      position: sticky;
+      top: 5rem;
+      align-self: start;
+    }
+    .toc-sticky h4 {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.8rem;
+      font-weight: 600;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .toc-sticky ol {
+      list-style: none;
+      margin: 0; padding: 0;
+      counter-reset: toc;
+    }
+    .toc-sticky ol li {
+      counter-increment: toc;
+      padding: 0.45rem 0;
+      font-family: var(--serif);
+      font-size: 0.92rem;
+      line-height: 1.35;
+      color: var(--muted);
+      border-bottom: 1px dotted var(--rule);
+      font-variation-settings: "opsz" 18;
+    }
+    .toc-sticky ol li:last-child { border-bottom: none; }
+    .toc-sticky ol li::before {
+      content: "§ " counter(toc, decimal-leading-zero);
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-right: 0.7rem;
+      font-weight: 600;
+    }
+    .toc-sticky ol li.active {
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .toc-sticky ol li:hover { color: var(--accent); }
+
+    .sources-card {
+      margin-top: 2rem;
+      padding: 1.2rem 1.3rem 1.4rem;
+      background: var(--paper-warm);
+      border: 1px solid var(--rule);
+    }
+    .sources-card h4 {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0 0 0.8rem;
+      font-weight: 600;
+    }
+    .sources-card ul {
+      list-style: none; margin: 0; padding: 0;
+    }
+    .sources-card li {
+      padding: 0.5rem 0;
+      border-top: 1px dotted var(--rule);
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+    .sources-card li:first-child { border-top: none; padding-top: 0; }
+    .sources-card .book {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      color: var(--ink);
+      font-variation-settings: "opsz" 18;
+    }
+    .sources-card .author {
+      display: block;
+      font-family: var(--serif);
+      font-style: normal;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ============================================================ */
+    /* Responsive                                                    */
+    /* ============================================================ */
+    @media (max-width: 920px) {
+      .masthead .inner { flex-wrap: wrap; }
+      .masthead .ticker { display: none; }
+      .dek-band .inner { flex-direction: column; gap: 0.4rem; align-items: flex-start; }
+      .stage { grid-template-columns: 1fr; }
+      .stage > .col-main { border-right: none; padding-right: 0; }
+      .stage > .col-side { padding-left: 0; padding-top: 2rem; border-top: 2px solid var(--rule-strong); margin-top: 2rem; }
+      .reading-entry { grid-template-columns: 2.6rem 1fr; }
+      .reading-entry .right { display: none; }
+      .article-view { grid-template-columns: 1fr; }
+      .article-view > .col-main { border-right: none; padding-right: 0; }
+      .article-view > .col-side { padding-left: 0; padding-top: 2rem; border-top: 1px solid var(--rule); margin-top: 2rem; }
+      .toc-sticky { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============= MASTHEAD ============= -->
+  <header class="masthead">
+    <div class="inner">
+      <a class="brand" href="#">
+        <span class="mark">EE</span>
+        <span class="name">Engineering Excellence <em>— a journal of practice</em></span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#" class="active">Leadership</a></li>
+          <li><a href="#">Best Practices</a></li>
+          <li><a href="#">Career</a></li>
+          <li><a href="#">AI</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+      <span class="ticker">Vol. I · No. 002 · 26 May 2026</span>
+    </div>
+  </header>
+
+  <!-- ============= DEK BAND ============= -->
+  <div class="dek-band">
+    <div class="inner">
+      <p class="dek">
+        <strong>Most engineering advice is half right.</strong> These essays try to give you the other half — grounded in books, written for engineers building real systems inside real organizations.
+      </p>
+      <span class="meta">5 essays · updated weekly</span>
+    </div>
+  </div>
+
+  <!-- ============= MAIN ============= -->
+  <main class="stage">
+
+    <!-- ===== LEFT: reading list ===== -->
+    <div class="col-main">
+      <div class="section-head">
+        <span class="title"><span class="pre">¶</span>The Reading List</span>
+        <span class="count">5 essays · sorted by recency</span>
+      </div>
+
+      <ol class="reading-list">
+
+        <!-- LEAD essay (compact, with excerpt) -->
+        <li class="reading-entry is-lead">
+          <span class="num">No. 003</span>
+          <div class="body">
+            <span class="lead-flag">★ Latest</span>
+            <div class="head-row">
+              <span class="dept">Career</span>
+              <h2><a href="#article">From Senior to Staff</a></h2>
+            </div>
+            <p class="dek">What you need to change — and what your organization actually needs to provide.</p>
+            <p class="excerpt">
+              Most "how to get to staff" articles give you one side of the story — think bigger, work across teams, drive strategy. That's all true, but it's only half of it. <strong>Half the story is worse than no story</strong>, because it lets you blame yourself for things that aren't your fault.
+            </p>
+            <div class="foot-row">
+              <span>Robert</span><span class="dot"></span>
+              <span>08 Feb 2026</span><span class="dot"></span>
+              <span>14 min</span><span class="dot"></span>
+              <span class="tag">career-growth</span>
+              <span class="tag">staff-engineer</span>
+              <span class="tag">promotion</span>
+            </div>
+          </div>
+          <div class="right">
+            <span class="pages-label">Length</span>
+            <span class="pages">3,412 wds</span>
+            <span class="arrow">→</span>
+          </div>
+        </li>
+
+        <!-- regular entries -->
+        <li class="reading-entry">
+          <span class="num">No. 002</span>
+          <div class="body">
+            <div class="head-row">
+              <span class="dept">Leadership</span>
+              <h2><a href="#">Shielding vs. Exposure: When to Protect Your Team and When to Let Them See the Mess</a></h2>
+            </div>
+            <p class="dek">
+              The popular advice to shield your team is half the story. Over-protected engineers can't grow into leaders — selective exposure is how you build them.
+            </p>
+            <div class="foot-row">
+              <span>07 Feb 2026</span><span class="dot"></span>
+              <span>11 min</span><span class="dot"></span>
+              <span class="tag">leadership</span>
+              <span class="tag">team-management</span>
+              <span class="tag">engineering-culture</span>
+            </div>
+          </div>
+          <div class="right">
+            <span class="pages-label">Length</span>
+            <span class="pages">2,840 wds</span>
+            <span class="arrow">→</span>
+          </div>
+        </li>
+
+        <li class="reading-entry">
+          <span class="num">No. 004</span>
+          <div class="body">
+            <div class="head-row">
+              <span class="dept">AI</span>
+              <h2><a href="#">What AI Actually Threatens — and What It Doesn't</a></h2>
+            </div>
+            <p class="dek">
+              A blunt, activity-by-activity breakdown of what AI can replace today, what it can't, and which engineering skills become more or less valuable.
+            </p>
+            <div class="foot-row">
+              <span>07 Feb 2026</span><span class="dot"></span>
+              <span>22 min</span><span class="dot"></span>
+              <span class="tag">ai</span>
+              <span class="tag">career</span>
+              <span class="tag">software-engineering</span>
+            </div>
+          </div>
+          <div class="right">
+            <span class="pages-label">Length</span>
+            <span class="pages">5,418 wds</span>
+            <span class="arrow">→</span>
+          </div>
+        </li>
+
+        <li class="reading-entry">
+          <span class="num">No. 001</span>
+          <div class="body">
+            <div class="head-row">
+              <span class="dept">Best Practices</span>
+              <h2><a href="#">Pre-Mortems for Architecture Decisions: A Practical Stress Testing Framework</a></h2>
+            </div>
+            <p class="dek">
+              A concrete framework for stress-testing architecture decisions before they ship — with an enterprise checklist covering scale, security, compliance, migration, team capability, and operational burden.
+            </p>
+            <div class="foot-row">
+              <span>07 Feb 2026</span><span class="dot"></span>
+              <span>18 min</span><span class="dot"></span>
+              <span class="tag">architecture</span>
+              <span class="tag">risk-management</span>
+              <span class="tag">pre-mortem</span>
+            </div>
+          </div>
+          <div class="right">
+            <span class="pages-label">Length</span>
+            <span class="pages">4,210 wds</span>
+            <span class="arrow">→</span>
+          </div>
+        </li>
+
+        <li class="reading-entry">
+          <span class="num">No. 005</span>
+          <div class="body">
+            <div class="head-row">
+              <span class="dept">Career</span>
+              <h2><a href="#">The Quiet Skills That Compound</a></h2>
+            </div>
+            <p class="dek">
+              Reading code well. Writing a useful PR description. Knowing when to push back. The unglamorous habits that separate competent engineers from indispensable ones.
+            </p>
+            <div class="foot-row">
+              <span>Coming soon</span><span class="dot"></span>
+              <span class="tag">career-growth</span>
+              <span class="tag">craft</span>
+            </div>
+          </div>
+          <div class="right">
+            <span class="pages-label">Status</span>
+            <span class="pages">Draft</span>
+            <span class="arrow">·</span>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ===== RIGHT: sidebar ===== -->
+    <aside class="col-side">
+
+      <div class="side-block">
+        <h3><span class="accent">¶</span>Departments</h3>
+        <ul class="dept-rail">
+          <li><a class="name" href="#">Leadership</a><span class="count">2 essays</span></li>
+          <li><a class="name" href="#">Best Practices</a><span class="count">2 essays</span></li>
+          <li><a class="name" href="#">Career</a><span class="count">2 essays</span></li>
+          <li><a class="name" href="#">AI</a><span class="count">1 essay</span></li>
+        </ul>
+      </div>
+
+      <div class="side-block">
+        <h3><span class="accent">¶</span>Working Bibliography</h3>
+        <ul class="biblio">
+          <li>
+            <span class="book">Unite the Tribes</span>
+            <span class="author">Christopher Duncan</span>
+            <span class="cited">Cited × 3</span>
+          </li>
+          <li>
+            <span class="book">Never Lead Alone</span>
+            <span class="author">Keith Ferrazzi</span>
+            <span class="cited">Cited × 3</span>
+          </li>
+          <li>
+            <span class="book">Staff Engineer</span>
+            <span class="author">Will Larson</span>
+            <span class="cited">Cited × 1</span>
+          </li>
+          <li>
+            <span class="book">An Elegant Puzzle</span>
+            <span class="author">Will Larson</span>
+            <span class="cited">Cited × 1</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="subscribe">
+        <h4>Read these in your inbox.</h4>
+        <p>One essay a month. No subscriber-only content, no marketing, no fluff.</p>
+        <form>
+          <input type="email" placeholder="you@work.com" />
+          <button>Sub</button>
+        </form>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- ============= FOOTNOTE ============= -->
+  <footer class="footnote">
+    <span>© 2026 Engineering Excellence · <a href="#">RSS</a> · <a href="#">About</a> · <a href="#">Colophon</a></span>
+    <span class="colophon-note">Set in Newsreader &amp; IBM Plex. Written by Robert, in his own time, with sources cited.</span>
+  </footer>
+
+
+  <!-- ============= ARTICLE PAGE ============= -->
+
+  <div class="demo-divider">
+    <span class="note">↓ Article page treatment ↓</span>
+  </div>
+
+  <article class="article-view" id="article">
+
+    <div class="col-main">
+      <header class="article-header">
+        <div class="article-meta-row">
+          <span class="dept">Career</span>
+          <span>Essay No. 003</span>
+          <span class="dot"></span>
+          <span>Vol. I · Iss. 002</span>
+          <span class="dot"></span>
+          <span>3,412 words · 14 min read</span>
+        </div>
+        <h1 class="article-h1">From Senior to Staff</h1>
+        <p class="article-standfirst">
+          What you need to change — and what your organization actually needs to provide. The jump fails for two reasons and most advice only covers one.
+        </p>
+        <div class="article-byline">
+          <span>By <span class="author">Robert</span></span>
+          <span class="dot"></span>
+          <span>Published 08 Feb 2026</span>
+        </div>
+        <div class="article-tags">
+          <a href="#">career-growth</a>
+          <a href="#">staff-engineer</a>
+          <a href="#">promotion</a>
+        </div>
+      </header>
+
+      <div class="article-prose">
+        <p>
+          Most "how to get to staff" articles give you one side of the story — think bigger, work across teams, drive strategy. That's all true, but it's only half of it. <strong>Half the story is worse than no story, because it lets you blame yourself for things that aren't your fault.</strong>
+        </p>
+        <p>
+          Getting to staff is a two-player game. You need to change how you work. <em>And</em> your company needs to actually have a real staff role with real work attached to it. If either side isn't holding up their end, you're stuck — and I've watched talented engineers burn years chasing a title that didn't actually exist at their company.
+        </p>
+        <h2><span class="sect-num">§ 01</span>What You Need to Change</h2>
+        <p>
+          The behavioral shifts are well-trodden ground. You stop measuring your value by lines of code and start measuring it by problems eliminated. You stop being the smartest person in the room and start making the room smarter. You learn to write — properly, with structure, because written artifacts are how staff engineers scale.
+        </p>
+        <blockquote>
+          The senior engineer's job is to do the work well. The staff engineer's job is to make sure the right work gets done.
+        </blockquote>
+        <p>
+          The honest part is that this transition is uncomfortable, and most of the discomfort comes from giving up the things that made you good at being senior. The fast hands. The deep flow. The satisfying close of a hard problem on Friday afternoon. Staff work is slower, more diffuse, and most of your wins look like things <em>not</em> happening — a migration that didn't go sideways, a contract that didn't get signed, a team that didn't burn out.
+        </p>
+        <h2><span class="sect-num">§ 02</span>What Your Org Must Provide</h2>
+        <p>
+          The other half: there has to be staff-level work available. Not staff-level <em>headcount</em> — actual problems that require a staff engineer to solve. If your company's biggest open question is "ship feature X by quarter Y," you don't have staff work. You have senior work being given to someone with a staff title for retention.
+        </p>
+      </div>
+    </div>
+
+    <aside class="col-side">
+      <div class="toc-sticky">
+        <h4>In this essay</h4>
+        <ol>
+          <li class="active">What You Need to Change</li>
+          <li>What Your Org Must Provide</li>
+          <li>When Both Sides Hold Up</li>
+          <li>When Neither Does</li>
+        </ol>
+
+        <div class="sources-card">
+          <h4>Sources cited</h4>
+          <ul>
+            <li>
+              <span class="book">Unite the Tribes</span>
+              <span class="author">Christopher Duncan</span>
+            </li>
+            <li>
+              <span class="book">Never Lead Alone</span>
+              <span class="author">Keith Ferrazzi</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </article>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PRD Validation (Pass 2): Engineering Excellence</title>
+<style>
+  :root {
+    --bg: #fafaf9; --surface: #ffffff; --border: #e7e5e4; --text: #1c1917; --muted: #78716c;
+    --verdict-strong: #16a34a; --verdict-adequate: #65a30d; --verdict-thin: #d97706; --verdict-broken: #dc2626;
+    --sev-low: #64748b; --sev-medium: #ca8a04; --sev-high: #ea580c; --sev-critical: #dc2626;
+    --grade-exc: #16a34a; --grade-good: #65a30d; --grade-fair: #d97706; --grade-poor: #dc2626;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+  header.report-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+  .title h1 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .title .subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .grade { padding: 10px 18px; border-radius: 8px; font-weight: 600; color: white; font-size: 15px; white-space: nowrap; }
+  .grade-excellent { background: var(--grade-exc); }
+  .grade-good { background: var(--grade-good); }
+  .grade-fair { background: var(--grade-fair); }
+  .grade-poor { background: var(--grade-poor); }
+  .synthesis { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--muted); border-radius: 8px; padding: 18px 22px; margin-bottom: 24px; font-size: 15.5px; }
+  .synthesis p { margin: 0 0 10px; }
+  .synthesis p:last-child { margin-bottom: 0; }
+  .dimension-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 24px; }
+  .dim-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .dim-card .dim-name { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .dim-card .dim-verdict { font-size: 14px; font-weight: 600; }
+  section.dimension, section.reviewer-section { margin-bottom: 14px; }
+  section.dimension details, section.reviewer-section details { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  section summary { padding: 14px 20px; cursor: pointer; user-select: none; list-style: none; display: flex; align-items: center; gap: 12px; }
+  section summary::-webkit-details-marker { display: none; }
+  section summary::before { content: "▸"; display: inline-block; color: var(--muted); transition: transform 0.15s ease; }
+  section details[open] summary::before { transform: rotate(90deg); }
+  section summary h2 { display: inline; margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.005em; flex: 1; }
+  .verdict-pill { font-size: 11px; padding: 3px 10px; border-radius: 999px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: white; }
+  .verdict-strong { background: var(--verdict-strong); }
+  .verdict-adequate { background: var(--verdict-adequate); }
+  .verdict-thin { background: var(--verdict-thin); }
+  .verdict-broken { background: var(--verdict-broken); }
+  .dim-body { padding: 4px 20px 18px; }
+  .dim-judgment { color: var(--text); font-size: 14.5px; }
+  .dim-judgment p { margin: 0 0 10px; }
+  .findings-list { padding: 0 20px 4px; }
+  article.finding { padding: 14px 0; border-top: 1px solid var(--border); }
+  article.finding:first-child { border-top: none; }
+  article.finding header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .badge { font-size: 10.5px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.4; }
+  .badge-sev-low { background: rgba(100, 116, 139, 0.12); color: var(--sev-low); }
+  .badge-sev-medium { background: rgba(202, 138, 4, 0.14); color: var(--sev-medium); }
+  .badge-sev-high { background: rgba(234, 88, 12, 0.14); color: var(--sev-high); }
+  .badge-sev-critical { background: rgba(220, 38, 38, 0.14); color: var(--sev-critical); }
+  .finding-title { margin: 0; font-size: 15px; font-weight: 500; flex: 1; min-width: 200px; }
+  .finding-location { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; color: var(--muted); }
+  .finding-note, .finding-fix { margin-top: 6px; font-size: 14px; }
+  .finding-fix strong { color: var(--muted); font-weight: 500; }
+  .reviewer-source { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .mechanical { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-top: 24px; font-size: 14px; }
+  .mechanical h3 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .mechanical ul { margin: 0; padding-left: 20px; }
+  .mechanical li { margin-bottom: 4px; color: var(--text); }
+  footer.report-footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  footer .meta { display: flex; gap: 24px; flex-wrap: wrap; }
+  .delta-note { background: rgba(101, 163, 13, 0.08); border: 1px solid rgba(101, 163, 13, 0.3); border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; font-size: 14px; }
+  .delta-note strong { color: var(--verdict-adequate); }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="report-header">
+      <div class="title">
+        <h1>Engineering Excellence — Validation Report (Pass 2)</h1>
+        <div class="subtitle">_bmad-output/planning-artifacts/prds/prd-ee-ai-2026-05-24/prd.md</div>
+      </div>
+      <div class="grade grade-fair">Fair</div>
+    </header>
+
+    <div class="delta-note">
+      <strong>Improvement vs. Pass 1 (Poor):</strong> All 3 first-pass criticals closed at the spec level. 8 high + 11 medium + 8 low findings all addressed. 4 spawned architectural sub-questions resolved. Rubric verdicts improved across all 7 dimensions (no thin/broken; 5 strong, 2 adequate). PRD grew from ~600 to 928 lines.
+    </div>
+
+    <div class="synthesis">
+      <p>The PRD is now in <em>adequate-to-strong</em> shape across every rubric dimension. The walk-through has the texture of a real planning artifact: trade-offs are named with what was given up, deferrals carry triggers, and the v1.1 stack hangs together as one coherent box rather than a list of plausible-sounding components. Decisions are visible rather than averaged away. The §10 Inferences Index is a real downstream win; the FR-7 mobile-nav acceptance criteria block is exemplary; the FR-16a/16b split is correct operational thinking.</p>
+      <p>The adversarial reviewer, however, found that the fix cycle has done what fix cycles do: <strong>redistributed risk rather than reduced it</strong>. Two new critical findings flag a meta-pattern — the PRD's discipline mechanisms (the v1.05 article-count trigger, the 9-month forcing function) depend on the same author who needs the discipline. The strict grade formula would say Poor (any critical → Poor). The honest grade is <strong>Fair</strong>: these criticals are about enforcement of fixes, not about defects in spec. The fixes are correct; the question is whether they will be applied. The patterns section of the adversarial review names three real blind spots — author conflates spec-completeness with shippability; hard gates are being created faster than baselines are measured; sequencing is correctly identified as the discipline but the sequence is unenforced. The right next step is not another fix pass — it is a <em>measurement</em> pass.</p>
+    </div>
+
+    <div class="dimension-summary">
+      <div class="dim-card">
+        <div class="dim-name">Decision-readiness</div>
+        <div class="dim-verdict" style="color: var(--verdict-strong)">strong</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-name">Substance over theater</div>
+        <div class="dim-verdict" style="color: var(--verdict-adequate)">adequate</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-name">Strategic coherence</div>
+        <div class="dim-verdict" style="color: var(--verdict-strong)">strong</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-name">Done-ness clarity</div>
+        <div class="dim-verdict" style="color: var(--verdict-adequate)">adequate</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-name">Scope honesty</div>
+        <div class="dim-verdict" style="color: var(--verdict-strong)">strong</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-name">Downstream usability</div>
+        <div class="dim-verdict" style="color: var(--verdict-adequate)">adequate</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-name">Shape fit</div>
+        <div class="dim-verdict" style="color: var(--verdict-strong)">strong</div>
+      </div>
+    </div>
+
+    <section class="dimension"><details><summary><h2>Decision-readiness</h2><span class="verdict-pill verdict-strong">strong</span></summary>
+      <div class="dim-body"><div class="dim-judgment"><p>Decisions are visible rather than averaged away. §4.7 stack-additions names Better Auth, Drizzle, Neon, `@astrojs/node` with reasons and rejected alternatives. §6.3 sequences the roadmap with an explicit forcing function. FR-21's pre-consent posture is enumerated as "non-negotiable" with four testable invariants. FR-16b explicitly names what is NOT in v1.1. §9 Open Questions is mostly a graveyard of RESOLVED entries.</p></div></div>
+      <div class="findings-list">
+        <article class="finding"><header><span class="badge badge-sev-low">low</span><h3 class="finding-title">Forcing function trigger is unmonitored</h3><span class="finding-location">§6.3</span></header><div class="finding-note">"Automatically trigger a re-decision pass" has no named owner of the clock.</div><div class="finding-fix"><strong>Fix:</strong> Name where the start-date is recorded and what "automatically" means in practice.</div></article>
+      </div>
+    </details></section>
+
+    <section class="dimension"><details><summary><h2>Substance over theater</h2><span class="verdict-pill verdict-adequate">adequate</span></summary>
+      <div class="dim-body"><div class="dim-judgment"><p>Personas are tight: two, each driving distinct FRs. §2.1.2 scope marker explicitly disarms the post-v1 persona theater failure mode. §1 Vision confronts its own thinness honestly ("v1 has no differentiator yet"). NFRs hardened from adjectives to thresholds (NFR-1 Lighthouse ≥95, NFR-2 WCAG 2.1 AA with axe-core enforcement, NFR-4 build budget). Mild concern: JTBD blocks are lyrical relative to how few decisions they drive in the FR list.</p></div></div>
+      <div class="findings-list">
+        <article class="finding"><header><span class="badge badge-sev-low">low</span><h3 class="finding-title">JTBD prose-to-decision ratio</h3><span class="finding-location">§2.2.A, §2.2.B</span></header><div class="finding-note">Neither JTBD block is cited by any FR consequences. Framing-per-line ratio is low.</div><div class="finding-fix"><strong>Fix:</strong> Add a "JTBD clusters cited by:" pointer per cluster, or accept as design rationale and label it as such.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-low">low</span><h3 class="finding-title">FR-9 about-page acceptance is thin theater</h3><span class="finding-location">§4.4</span></header><div class="finding-note">Three string-presence assertions for a trust-establishing page.</div><div class="finding-fix"><strong>Fix:</strong> Acknowledge testable-only at this level, or add one bound for what the page must say.</div></article>
+      </div>
+    </details></section>
+
+    <section class="dimension"><details><summary><h2>Strategic coherence</h2><span class="verdict-pill verdict-strong">strong</span></summary>
+      <div class="dim-body"><div class="dim-judgment"><p>Clear thesis stated openly in §1; feature prioritization follows it. Success Metrics §8 lead with publishing cadence — a thesis-validating metric, not an activity metric. The counter-metrics block closes the loop honestly. v1.05 separation from v1.1 is one of the cleaner structural moves in the doc.</p></div></div>
+      <div class="findings-list">
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">v1.3 reads as a kitchen-sink bucket</h3><span class="finding-location">§6.3</span></header><div class="finding-note">RSS, OG meta, GSC-driven polish, "smaller items, slot in as time allows" — a backlog inside a roadmap.</div><div class="finding-fix"><strong>Fix:</strong> Name v1.3 with same crispness as v1.05/v1.1/v1.2, or rename to "Backlog: post-v1.2 candidates."</div></article>
+      </div>
+    </details></section>
+
+    <section class="dimension"><details open><summary><h2>Done-ness clarity</h2><span class="verdict-pill verdict-adequate">adequate</span></summary>
+      <div class="dim-body"><div class="dim-judgment"><p>Most FRs carry testable consequences. FR-1, FR-2, FR-5, FR-7 hamburger, FR-10, FR-21, FR-25 are clean. Weak spots cluster in v1.1 §4.7: FR-13 landing-page acceptance is a section list not consequences; FR-17 multi-device progress merge undefined; FR-18 sign-up hedged with "likely"; FR-16a payment-confirmation timing soft.</p></div></div>
+      <div class="findings-list">
+        <article class="finding"><header><span class="badge badge-sev-high">high</span><h3 class="finding-title">FR-13 acceptance is a section list, not consequences</h3><span class="finding-location">§4.7</span></header><div class="finding-note">"Includes: value proposition, target outcome, syllabus summary, pricing, purchase CTA" tells a story author nothing about done.</div><div class="finding-fix"><strong>Fix:</strong> Add at least one bound per item (length, position, mobile visibility).</div></article>
+        <article class="finding"><header><span class="badge badge-sev-high">high</span><h3 class="finding-title">FR-17 progress acceptance has unresolved multi-device semantics</h3><span class="finding-location">§4.7</span></header><div class="finding-note">"Progress persisted per learner across sessions and devices" leaves cross-device merge undefined. Stale Q15 reference too.</div><div class="finding-fix"><strong>Fix:</strong> Add "Last write wins per (learner, lesson) pair; no merge UI." Update Q15 reference to "Postgres entitlements table."</div></article>
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">FR-18 sign-up acceptance hedged with "likely"</h3><span class="finding-location">§4.7</span></header><div class="finding-note">"Likely" is a weasel word in an acceptance position.</div><div class="finding-fix"><strong>Fix:</strong> Commit. "Sign-up bundled into first-purchase Stripe Checkout success" OR "Standalone `/signup/` exists for X reason."</div></article>
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">FR-16a payment-confirmation timing is soft</h3><span class="finding-location">§4.7</span></header><div class="finding-note">"Immediately confirms access" is posture, not testable bound.</div><div class="finding-fix"><strong>Fix:</strong> "By redirect-land, entitlement row exists and session reflects it — verifiable by hitting `/course/lesson/{first}` from success page and getting the lesson body."</div></article>
+        <article class="finding"><header><span class="badge badge-sev-low">low</span><h3 class="finding-title">FR-14 syllabus lacks bottom-of-page CTA criteria</h3><span class="finding-location">§4.7</span></header><div class="finding-note">No bound on whether syllabus drives back to purchase.</div><div class="finding-fix"><strong>Fix:</strong> One line. Either "ends with Buy CTA" or "read-only; CTA on /course/ only."</div></article>
+      </div>
+    </details></section>
+
+    <section class="dimension"><details><summary><h2>Scope honesty</h2><span class="verdict-pill verdict-strong">strong</span></summary>
+      <div class="dim-body"><div class="dim-judgment"><p>§5 Non-Goals does real work and reconciles with v1.05. §6.1.1 separates v1.05 with explicit triggers. §6.2 marks RSS as DEFERRED rather than dropping silently. §6.1 v1 migration checklist is exactly what downstream story creation needs. Open-questions count is low. §4 prologue note about FR ordering is honest but symptomatic.</p></div></div>
+      <div class="findings-list">
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">No traffic load assumption stated</h3><span class="finding-location">§7, §8</span></header><div class="finding-note">No order-of-magnitude expectation for v1 traffic. FR-16b's "≤100 sales/month" appears without prior scaling assumption.</div><div class="finding-fix"><strong>Fix:</strong> One line: "Assumes <10K monthly uniques at v1, <50K by v1.1."</div></article>
+      </div>
+    </details></section>
+
+    <section class="dimension"><details><summary><h2>Downstream usability</h2><span class="verdict-pill verdict-adequate">adequate</span></summary>
+      <div class="dim-body"><div class="dim-judgment"><p>Glossary terms used consistently. §10 Inferences Index is a real downstream win. §6.1 migration checklist is exactly what downstream needs. Hard problem: FR numbering. The §4 prologue spells out non-monotonic FR IDs and out-of-order §4.x file ordering. PRD is honest about it but pushes the cost onto every downstream reader. Cross-references are dense; the PRD assumes the reader has loaded all of it into working memory.</p></div></div>
+      <div class="findings-list">
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">FR ID disorder is a downstream tax</h3><span class="finding-location">§4 prologue, throughout</span></header><div class="finding-note">Non-monotonic IDs + FR-19 deliberately unused. Cost compounds across architecture, UX, and story extraction.</div><div class="finding-fix"><strong>Fix:</strong> Either add an FR-ID-to-section map (~15 lines), or pay the renumber cost once. Either beats "every downstream reader pays the orientation cost forever."</div></article>
+        <article class="finding"><header><span class="badge badge-sev-low">low</span><h3 class="finding-title">v1.05/v1.1/v1.2/v1.3 milestone labels dense in cross-references</h3><span class="finding-location">§6.3</span></header><div class="finding-note">No single table maps "what's where."</div><div class="finding-fix"><strong>Fix:</strong> A small table at head of §6.3 — milestone | content | trigger.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-low">low</span><h3 class="finding-title">§3 Glossary missing Entitlement / Paywall page / Session</h3><span class="finding-location">§3, §4.7</span></header><div class="finding-note">Load-bearing terms in §4.7 without glossary entries.</div><div class="finding-fix"><strong>Fix:</strong> Three additional glossary entries.</div></article>
+      </div>
+    </details></section>
+
+    <section class="dimension"><details><summary><h2>Shape fit</h2><span class="verdict-pill verdict-strong">strong</span></summary>
+      <div class="dim-body"><div class="dim-judgment"><p>PRD shape matches the product. UJs and personas are load-bearing. Brownfield framing explicit and existing-code references accurate. Chain-top expectation acknowledged. Rigor calibrated to stakes — NFR-6 concrete but not over-engineered. FR-16a/16b correctly skips refund/dispute handling for v1.1.</p></div></div>
+    </details></section>
+
+    <section class="reviewer-section"><details open><summary><h2>Adversarial review (Pass 2) — 2 critical, 5 high, 7 medium, 2 low</h2><span class="reviewer-source">review-adversarial-general.md</span></summary>
+      <div class="dim-body"><div class="dim-judgment">
+        <p>The three first-pass criticals are genuinely closed at the spec level. That's real progress. But the fix cycle has redistributed risk rather than reduced it. The PRD grew ~50% (600→928 lines) while ostensibly removing scope. The v1.1 stack has hardened into a stack the solo author has never operated (Better Auth + Drizzle + Postgres + `@astrojs/node` + Stripe + systemd). Several "committed" thresholds (Lighthouse ≥95, WCAG 2.1 AA, 60s build budget, ~15-article v1.05 trigger) have been promoted from hopes to build-blocking gates without any baseline measurement.</p>
+        <p><strong>Patterns flagged:</strong> (1) Author conflates spec-completeness with shippability — every fix added more spec. (2) Hard gates created faster than baselines measured. (3) Sequencing identified as the discipline, but the sequence is unenforced — the same solo author is the only person who would notice slip and act. The right next step is not another fix pass; it is a <em>measurement</em> pass.</p>
+      </div></div>
+      <div class="findings-list">
+        <article class="finding"><header><span class="badge badge-sev-critical">critical</span><h3 class="finding-title">v1.05 corpus-size trigger will never naturally fire</h3><span class="finding-location">§6.1.1, §6.3</span></header><div class="finding-note">At 1-2 articles/month from 5 articles, ~15 lands at month 5-10. But while the author is heads-down on v1.1 (months 1-9), cadence will <em>decrease</em>. v1.05 becomes the graveyard the first-pass review warned about.</div><div class="finding-fix"><strong>Fix:</strong> Add a time-based OR-trigger. "v1.05 ships when (corpus ≥ 15) OR (12 months after v1 ships), whichever first." Without OR, "v1.05" is a politer word for "out of scope."</div></article>
+        <article class="finding"><header><span class="badge badge-sev-critical">critical</span><h3 class="finding-title">9-month forcing function has no automatic mechanism</h3><span class="finding-location">§6.3</span></header><div class="finding-note">"Automatically" is doing all the work; nothing makes it automatic. The same solo author 9 months into a slipping course build is the only person who would notice the 9-month mark, interrupt their work, evaluate options, and write off sunk cost. That's exactly the discipline this contingency exists to compensate for.</div><div class="finding-fix"><strong>Fix:</strong> Pick one. (a) Pre-commit fallback — scaffold Lemon Squeezy account so switch is 2 days. (b) Hard calendar date in the PRD ("2026-12-01: re-decision day"). (c) Externalize trigger — accountability partner who pings on the date.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-high">high</span><h3 class="finding-title">NFR-1/NFR-2 build-blocking with zero baseline</h3><span class="finding-location">§7, §6.1</span></header><div class="finding-note">Lighthouse ≥95 and WCAG 2.1 AA never measured. First false-fail erodes the gate. The author's two options become: fix in minutes (best case) or "disable just this once" — which destroys NFR-6's credibility for the cookie-consent verification.</div><div class="finding-fix"><strong>Fix:</strong> Measure first, commit second. NFR-1 should read "≥ measured-baseline OR ≥ 90, whichever lower for v1; ratchet up over time." 95 target lives in §8 as goal, not in §7 as gate.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-high">high</span><h3 class="finding-title">FR-21 hard-gate spec contradicts static essay pages</h3><span class="finding-location">§4.8 vs §4.7</span></header><div class="finding-note">FR-21 says "Server-side: each page render checks for the ee-consent cookie." But §4.7 says essay pages stay statically generated. A static page has no per-request render. FR-21 conflates SSR-route mechanism (correct for course routes) with static-route mechanism (impossible by definition).</div><div class="finding-fix"><strong>Fix:</strong> Split FR-21 into two mechanisms. (a) Static essay pages: no GA4 tag ever in served HTML; inline script reads ee-consent and injects GA4 client-side if accept. (b) SSR routes: server-side check at render time. Both share the Playwright test suite.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-high">high</span><h3 class="finding-title">v1.1 stack is six new-to-author dependencies with no operational NFR</h3><span class="finding-location">§4.7, decision log</span></header><div class="finding-note">Better Auth, Drizzle, Postgres, @astrojs/node, Stripe webhooks, systemd, hybrid render mode — all new to author, all in one Node process on one VPS. No NFR for course uptime, no SLO, no incident-response posture, no degraded-mode story.</div><div class="finding-fix"><strong>Fix:</strong> Add NFR-8 covering v1.1 operational posture — uptime target (99% is fine, 99.9% would be a lie), restart-on-crash via systemd, health-check route, what happens to essay traffic if SSR process is down.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-high">high</span><h3 class="finding-title">v1.1 supposed to design shared infra for undefined v1.2</h3><span class="finding-location">§4.9, §6.3</span></header><div class="finding-note">PRD says v1.1 architecture "designs shared infra" so v1.2 newsletter can build on top. But §4.9 explicitly says "FRs to be added when author begins detailed design; anticipated surface area as a checklist not a commitment." Cannot design shared infra for undefined target.</div><div class="finding-fix"><strong>Fix:</strong> Make a single v1.2 commitment now, even if reversible: "v1.2 uses Better Auth user table; subscribers are users with no entitlements" OR "v1.2 has its own subscribers table and shares only the SMTP relay."</div></article>
+        <article class="finding"><header><span class="badge badge-sev-high">high</span><h3 class="finding-title">Scope grew during a fix pass that claimed to cut scope</h3><span class="finding-location">§4, §6.1</span></header><div class="finding-note">v1 lost 4 FRs to v1.05; v1 gained FR-29 + FR-25 active + FR-2 active + FR-21 hand-rolled + 3 committed NFRs + slug-collision lint + migration checklist. Net change to v1 surface area is positive, not negative.</div><div class="finding-fix"><strong>Fix:</strong> Real v1 work-estimate. List every FR and NFR with person-hours. If total >80h, cut more — and cut the right things (engagement instrumentation, migration checklist, NFR-1/2 hard gates) rather than the easy things.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">FR-7 hamburger spec is a one-off discipline spike</h3><span class="finding-location">§4.3</span></header><div class="finding-note">9 acceptance criteria for the hamburger — more spec than any other interactive surface. FR-21 cookie banner, FR-23 search modal, v1.1 paywall/account/login all need same discipline but don't enumerate it.</div><div class="finding-fix"><strong>Fix:</strong> Extract the 9 criteria into an NFR ("interactive components must satisfy: ..."), OR trim FR-7 to "satisfies NFR-2."</div></article>
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">FR-16b admin reconcile route has no auth-on-author spec</h3><span class="finding-location">§4.7</span></header><div class="finding-note">"Environment variable allowlist for the author's email" — fetched from where? Better Auth session? What if author never logs in? Worst case: header-based check, route wide open.</div><div class="finding-fix"><strong>Fix:</strong> Two lines. "Author has Better Auth account marked is_admin=true. /admin/* routes check session + admin flag."</div></article>
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">FR-15 noindex on paywall may break marketing function</h3><span class="finding-location">§4.7</span></header><div class="finding-note">Paywall is half marketing — title, value pitch, CTA. Noindex means no SEO, no featured snippets, no link equity back to /course/.</div><div class="finding-fix"><strong>Fix:</strong> Acknowledge the tradeoff explicitly, or invert — paywall pages indexed, lesson bodies noindexed.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">§10 Inferences Index is incomplete</h3><span class="finding-location">§10</span></header><div class="finding-note">Index lists 14 rows; PRD has more INFERRED/CONFIRMED markers. Missing: §4.6, §4.7, §4.8 section headers, all the YOLO-pass CONFIRMED additions (FR-7 a11y, FR-18 sign-out, FR-29, FR-21 hardening). The lowest-confidence additions are absent.</div><div class="finding-fix"><strong>Fix:</strong> Regenerate by grep, not by re-reading. Every [INFERRED]/[CONFIRMED] gets a row.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">FR-19 unused + §4 ordering is documented technical debt</h3><span class="finding-location">§4 prologue</span></header><div class="finding-note">Honest, but the explicit-debt note that never gets repaid. Renumber cost is real (~30-60 min); non-renumber cost is paid every reading.</div><div class="finding-fix"><strong>Fix:</strong> Renumber once now, or accept as permanent property.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">NFR-6 venue exists but invocation doesn't</h3><span class="finding-location">§7</span></header><div class="finding-note">"Venue: the VPS build script" — what invokes the script? Git hook? Manual SSH? If author can `git push` and have site update via some other path that doesn't call the gated script, all NFR-6 discipline evaporates.</div><div class="finding-fix"><strong>Fix:</strong> One bullet: "git push to main on VPS-side bare repo invokes a post-receive hook that runs ./deploy.sh."</div></article>
+        <article class="finding"><header><span class="badge badge-sev-medium">medium</span><h3 class="finding-title">v1.1 silently modifies v1 surfaces (FR-7, FR-8)</h3><span class="finding-location">§6.3, FR-7, FR-8</span></header><div class="finding-note">FR-7 v1 has NFR-2 a11y commitment; v1.1 adds /course/ link (affects active-state highlighting, hamburger tab order). FR-8 v1.1 adds course callout — what's in it? Title? Image? Recursive on /course/?</div><div class="finding-fix"><strong>Fix:</strong> Don't leave v1.1 modifications as one-line addenda inside v1 FRs. Either expand FR-7/FR-8 with v1.1 acceptance criteria, or create FR-7.1/FR-8.1 as v1.1 FRs that supersede.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-low">low</span><h3 class="finding-title">§5 Non-Goals still has live strikethroughs</h3><span class="finding-location">§5, §6.2</span></header><div class="finding-note">Strikethroughs aren't semantic. Story-generator skill reading §5 will see "No source-citation rendering" as a non-goal even though doc text overrides it.</div><div class="finding-fix"><strong>Fix:</strong> Delete struck lines; keep reversal notes in decision log only.</div></article>
+        <article class="finding"><header><span class="badge badge-sev-low">low</span><h3 class="finding-title">§4.7 stacks four "sensible defaults" without flagging</h3><span class="finding-location">§4.7</span></header><div class="finding-note">$99-199, lifetime, 30-day refund, 1-2 preview lessons — four soft commits in a row, no Q in §9 anchoring them.</div><div class="finding-fix"><strong>Fix:</strong> Add Q17 to §9 — "Pricing-model lock-in: confirm lifetime + 30-day + preview-count before v1.1 architecture starts."</div></article>
+      </div>
+    </details></section>
+
+    <div class="mechanical">
+      <h3>Mechanical notes</h3>
+      <ul>
+        <li><strong>Glossary drift:</strong> No drift on core nouns. "Entitlement," "Paywall page," "Session" are load-bearing in §4.7 without glossary entries.</li>
+        <li><strong>ID continuity:</strong> FR-19 deliberately unused (documented). FR IDs non-monotonic (documented). FR-16 split into FR-16a/16b (documented). Cross-references resolve.</li>
+        <li><strong>Inferences Index roundtrip:</strong> Incomplete — see medium finding above.</li>
+        <li><strong>UJ persona linkage:</strong> All four UJs name personas by exact label/description.</li>
+        <li><strong>Stale parentheticals:</strong> FR-15, FR-17 reference "§9 Q15" but Q15 is now RESOLVED. Replace with "Better Auth" / "Postgres entitlements table."</li>
+        <li><strong>Required sections:</strong> All present.</li>
+      </ul>
+    </div>
+
+    <footer class="report-footer">
+      <div class="meta">
+        <span>Rubric: /Users/rfk/.claude/skills/bmad-prd/assets/prd-validation-checklist.md</span>
+        <span>Generated: 2026-05-26T (Pass 2)</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
