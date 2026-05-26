@@ -1,0 +1,86 @@
+---
+interface Props {
+  num: number | string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  category: string;
+  tags: string[];
+  url: string;
+  author?: string;
+  isLead?: boolean;
+}
+
+const {
+  num,
+  title,
+  description,
+  pubDate,
+  category,
+  tags,
+  url,
+  author,
+  isLead = false,
+} = Astro.props;
+
+const formattedNum = typeof num === 'number' ? String(num).padStart(3, '0') : num;
+const categoryLabel = category
+  .split('-')
+  .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+  .join(' ');
+
+// Top 2 tags surfaced in the foot row, matching the v4 mockup density
+const surfacedTags = tags.slice(0, 2);
+---
+
+<li class="group grid grid-cols-[3rem_1fr_3rem] gap-5 items-baseline px-2 -mx-2 rounded-sm transition-colors hover:bg-paper-warm" class:list={[isLead ? 'py-7' : 'py-6']}>
+  <span class="font-mono text-xs text-muted-soft tracking-wide pt-1">
+    {isLead && <span class="text-accent mr-1">▸</span>}
+    {formattedNum}
+  </span>
+
+  <div class="min-w-0">
+    <a
+      href={`/blog/category/${category}/`}
+      class="inline-block font-sans text-[0.72rem] tracking-[0.14em] uppercase text-accent font-medium mb-2 no-underline hover:text-accent-deep"
+    >
+      {categoryLabel}
+    </a>
+
+    <h2
+      class:list={[
+        'm-0 mb-2 font-sans font-medium text-ink leading-tight',
+        isLead ? 'text-[2.05rem] tracking-[-0.026em]' : 'text-[1.42rem] tracking-[-0.018em]',
+      ]}
+    >
+      <a href={url} class="text-ink no-underline transition-colors group-hover:text-accent">{title}</a>
+    </h2>
+
+    <p class="font-sans text-[0.96rem] leading-relaxed text-muted m-0 mb-3 max-w-[62ch]">
+      {description}
+    </p>
+
+    <div class="flex items-center gap-2 flex-wrap font-mono text-[0.7rem] text-muted-soft">
+      {author && (
+        <>
+          <span>{author}</span>
+          <span class="text-rule">·</span>
+        </>
+      )}
+      <time datetime={pubDate.toISOString()}>
+        {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+      </time>
+      {surfacedTags.length > 0 && <span class="text-rule">·</span>}
+      {surfacedTags.map((tag) => (
+        <a
+          href={`/tags/${tag}/`}
+          class="text-accent-soft hover:text-accent no-underline before:content-['#'] before:opacity-50"
+        >{tag}</a>
+      ))}
+    </div>
+  </div>
+
+  <div class="text-right font-mono text-[0.7rem] text-muted-soft pt-1 leading-relaxed">
+    <span class="block transition-all group-hover:text-accent group-hover:translate-x-1">→</span>
+  </div>
+</li>

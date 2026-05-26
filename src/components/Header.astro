@@ -1,17 +1,88 @@
 ---
 const currentPath = Astro.url.pathname;
+
+const nav = [
+  { href: '/blog/', label: 'Reading list', match: (p: string) => p === '/blog/' || p === '/blog' },
+  { href: '/blog/category/leadership/', label: 'Leadership', match: (p: string) => p.includes('/leadership') },
+  { href: '/blog/category/best-practices/', label: 'Best Practices', match: (p: string) => p.includes('/best-practices') },
+  { href: '/blog/category/career/', label: 'Career', match: (p: string) => p.includes('/career') },
+  { href: '/blog/category/ai/', label: 'AI', match: (p: string) => p.includes('/ai') && !p.includes('/best-practices') },
+  { href: '/about/', label: 'About', match: (p: string) => p.startsWith('/about') },
+];
 ---
 
-<header class="border-b border-gray-200 px-4 py-4">
-  <nav class="max-w-5xl mx-auto flex items-center justify-between flex-wrap gap-4">
-    <a href="/" class="font-bold text-lg text-gray-900 hover:text-purple-800 no-underline">Engineering Excellence</a>
-    <ul class="flex list-none gap-5 flex-wrap">
-      <li><a href="/blog/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.startsWith('/blog') }]}>Blog</a></li>
-      <li><a href="/blog/category/leadership/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.includes('/leadership') }]}>Leadership</a></li>
-      <li><a href="/blog/category/best-practices/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.includes('/best-practices') }]}>Best Practices</a></li>
-      <li><a href="/blog/category/career/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.includes('/career') }]}>Career</a></li>
-      <li><a href="/blog/category/ai/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.includes('/ai') }]}>AI</a></li>
-      <li><a href="/about/" class:list={['text-sm text-gray-500 hover:text-purple-800', { 'text-purple-800!': currentPath.startsWith('/about') }]}>About</a></li>
-    </ul>
-  </nav>
+<header class="sticky top-0 z-50 bg-paper">
+  <div class="max-w-[76rem] mx-auto px-8 py-4 flex flex-wrap items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-3 no-underline group" aria-label="Engineering Excellence — home">
+      <svg
+        viewBox="0 0 28 24"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-8 h-7 block shrink-0"
+        aria-hidden="true"
+      >
+        <!-- { E·E } — wider letters with 3u of air on each side. -->
+        <!-- Left curly brace -->
+        <path
+          d="M 8 3 L 4 3 L 4 11 L 1 12 L 4 13 L 4 21 L 8 21"
+          stroke="var(--color-ink)"
+          stroke-width="2.8"
+          fill="none"
+          stroke-linecap="square"
+          stroke-linejoin="miter"
+        />
+        <!-- Right curly brace -->
+        <path
+          d="M 20 3 L 24 3 L 24 11 L 27 12 L 24 13 L 24 21 L 20 21"
+          stroke="var(--color-ink)"
+          stroke-width="2.8"
+          fill="none"
+          stroke-linecap="square"
+          stroke-linejoin="miter"
+        />
+        <!-- EE in accent purple -->
+        <g fill="var(--color-accent)">
+          <!-- Left E -->
+          <rect x="7"  y="7"  width="2"   height="10" />
+          <rect x="7"  y="7"  width="5"   height="2" />
+          <rect x="7"  y="11" width="3.5" height="2" />
+          <rect x="7"  y="15" width="5"   height="2" />
+          <!-- Right E -->
+          <rect x="16" y="7"  width="2"   height="10" />
+          <rect x="16" y="7"  width="5"   height="2" />
+          <rect x="16" y="11" width="3.5" height="2" />
+          <rect x="16" y="15" width="5"   height="2" />
+        </g>
+        <!-- Center dot -->
+        <circle cx="14" cy="12" r="1.3" fill="var(--color-accent)" />
+      </svg>
+      <span class="text-ink font-medium text-base">
+        Engineering Excellence<span class="text-muted font-normal ml-2">— a journal of practice</span>
+      </span>
+    </a>
+    <nav>
+      <ul class="flex flex-wrap gap-6 list-none m-0 p-0">
+        {nav.map(({ href, label, match }) => {
+          const active = match(currentPath);
+          return (
+            <li>
+              <a
+                href={href}
+                aria-current={active ? 'page' : undefined}
+                class:list={[
+                  'text-sm transition-colors py-1 relative no-underline',
+                  active ? 'text-ink font-medium' : 'text-muted hover:text-ink',
+                ]}
+              >
+                {label}
+                {active && (
+                  <span class="absolute left-0 right-0 -bottom-1.5 h-0.5 bg-accent"></span>
+                )}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  </div>
+  <div class="h-px bg-gradient-to-r from-transparent via-rule to-transparent opacity-70"></div>
 </header>

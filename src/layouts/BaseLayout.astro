@@ -6,9 +6,22 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  dek?: string;
+  dekStrong?: string;
+  meta?: string;
+  /** When true (default), wraps the slot in the two-column stage with a sidebar slot.
+   *  When false, the slot is rendered full-width (for the article view, which has its own grid). */
+  withSidebar?: boolean;
 }
 
-const { title, description = 'Software engineering excellence in enterprise settings' } = Astro.props;
+const {
+  title,
+  description = 'A journal of practice for senior engineers, tech leads, and engineering managers.',
+  dek,
+  dekStrong,
+  meta,
+  withSidebar = true,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -21,11 +34,43 @@ const { title, description = 'Software engineering excellence in enterprise sett
     <meta name="description" content={description} />
     <title>{title} | Engineering Excellence</title>
   </head>
-  <body class="min-h-dvh flex flex-col text-gray-900 antialiased">
+  <body class="min-h-dvh flex flex-col">
     <Header />
-    <main class="flex-1 w-full max-w-5xl mx-auto px-4 py-8">
-      <slot />
+
+    {(dek || dekStrong || meta) && (
+      <div class="bg-paper-warm">
+        <div class="max-w-[76rem] mx-auto px-8 py-6 flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between md:gap-8">
+          {(dek || dekStrong) && (
+            <p class="text-base text-muted leading-relaxed max-w-[60ch] m-0">
+              {dekStrong && <strong class="text-ink font-medium">{dekStrong}</strong>}
+              {dekStrong && dek && ' '}
+              {dek}
+            </p>
+          )}
+          {meta && (
+            <span class="font-mono text-xs tracking-wide text-muted-soft whitespace-nowrap">
+              {meta}
+            </span>
+          )}
+        </div>
+      </div>
+    )}
+
+    <main class="flex-1 w-full">
+      {withSidebar ? (
+        <div class="max-w-[76rem] mx-auto px-8 grid grid-cols-1 lg:grid-cols-[1fr_16rem] gap-12 lg:gap-18 py-12 lg:pb-20">
+          <div class="min-w-0">
+            <slot />
+          </div>
+          <aside class="min-w-0">
+            <slot name="sidebar" />
+          </aside>
+        </div>
+      ) : (
+        <slot />
+      )}
     </main>
+
     <Footer />
   </body>
 </html>

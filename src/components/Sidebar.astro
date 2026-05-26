@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  /** Highlight the current department, if any. */
+  currentCategory?: string;
+  /** Show the newsletter block. Off by default; turn on once newsletter ships. */
+  withSubscribe?: boolean;
+}
+
+const { currentCategory, withSubscribe = false } = Astro.props;
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+// Department counts
+const departments = [
+  { slug: 'leadership', label: 'Leadership' },
+  { slug: 'best-practices', label: 'Best Practices' },
+  { slug: 'career', label: 'Career' },
+  { slug: 'ai', label: 'AI' },
+].map((d) => ({
+  ...d,
+  count: posts.filter((p) => p.data.category === d.slug).length,
+}));
+
+// Aggregate sources (book + author), dedup by book title, count citations
+const sourceMap = new Map<string, { book: string; author: string; count: number }>();
+for (const post of posts) {
+  const sources = post.data.sources ?? [];
+  for (const src of sources) {
+    const key = src.book.toLowerCase();
+    const existing = sourceMap.get(key);
+    if (existing) {
+      existing.count += 1;
+    } else {
+      sourceMap.set(key, { book: src.book, author: src.author, count: 1 });
+    }
+  }
+}
+const sources = [...sourceMap.values()].sort((a, b) => b.count - a.count || a.book.localeCompare(b.book));
+---
+
+<div class="flex flex-col">
+
+  <section class="pb-10">
+    <h3 class="font-sans text-[0.8rem] font-medium text-ink m-0 mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-1.5 bg-accent inline-block rounded-[1px]"></span>
+      Departments
+    </h3>
+    <ul class="flex flex-col gap-2.5 list-none m-0 p-0">
+      {departments.map((dept) => (
+        <li class="flex justify-between items-baseline">
+          <a
+            href={`/blog/category/${dept.slug}/`}
+            aria-current={currentCategory === dept.slug ? 'page' : undefined}
+            class:list={[
+              'font-sans text-[0.95rem] no-underline transition-colors',
+              currentCategory === dept.slug ? 'text-accent font-medium' : 'text-ink-soft hover:text-accent',
+            ]}
+          >
+            {dept.label}
+          </a>
+          <span class="font-mono text-[0.68rem] text-muted-soft">{dept.count}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {sources.length > 0 && (
+    <section class="pb-10">
+      <h3 class="font-sans text-[0.8rem] font-medium text-ink m-0 mb-4 flex items-center gap-2">
+        <span class="w-1.5 h-1.5 bg-accent inline-block rounded-[1px]"></span>
+        Sources
+      </h3>
+      <ul class="flex flex-col gap-4 list-none m-0 p-0">
+        {sources.map((src) => (
+          <li class="text-sm leading-snug">
+            <span class="font-serif italic text-ink text-[0.96rem]">{src.book}</span>
+            <span class="block font-sans text-[0.8rem] text-muted mt-0.5">{src.author}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {withSubscribe && (
+    <section class="bg-paper-warm p-5 rounded-sm">
+      <h4 class="font-sans font-medium text-[0.95rem] text-ink m-0 mb-1.5">Read these in your inbox.</h4>
+      <p class="font-sans text-[0.83rem] leading-relaxed text-muted m-0 mb-3.5">
+        One essay a month. No marketing.
+      </p>
+      <form class="flex bg-paper rounded-sm overflow-hidden">
+        <input
+          type="email"
+          placeholder="you@work.com"
+          class="flex-1 bg-transparent border-0 px-3 py-2.5 font-sans text-[0.85rem] text-ink min-w-0 focus:outline-none"
+        />
+        <button
+          type="submit"
+          class="bg-ink text-paper border-0 font-sans text-[0.78rem] font-medium px-4 cursor-pointer hover:bg-accent transition-colors"
+        >
+          Join
+        </button>
+      </form>
+    </section>
+  )}
+
+</div>

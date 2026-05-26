@@ -2,17 +2,37 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About" description="About Engineering Excellence">
-  <div class="max-w-3xl mx-auto">
-    <h1 class="text-2xl font-bold mb-4">About</h1>
-    <p class="mb-4 text-gray-500 leading-relaxed">
-      Engineering Excellence is a blog dedicated to software engineering
-      leadership, best practices, career progression, and AI impact
-      amplification in enterprise settings.
-    </p>
-    <p class="mb-4 text-gray-500 leading-relaxed">
-      Written for senior engineers, tech leads, and engineering managers who
-      want practical, actionable insights they can apply immediately.
-    </p>
+<BaseLayout
+  title="About"
+  description="About Engineering Excellence"
+  dekStrong="For engineers who care about the craft."
+  dek="Engineering Excellence is a long-form journal of practice for senior engineers, tech leads, and engineering managers inside large organizations."
+  withSidebar={false}
+>
+  <div class="max-w-[40rem] mx-auto px-8 py-12 lg:py-16">
+    <h1 class="font-sans font-medium text-ink text-[clamp(1.8rem,3vw,2.4rem)] leading-tight tracking-[-0.02em] m-0 mb-8">
+      About
+    </h1>
+
+    <div class="prose prose-lg max-w-none">
+      <p>
+        Engineering Excellence publishes essays on the craft of building software at scale —
+        leadership, best practices, career growth, and what AI changes in the work.
+      </p>
+      <p>
+        Pithy engineering advice — "shield your team," "think like a staff engineer,"
+        "AI will change everything" — usually contains a real signal, but loses precision
+        in the abstraction. Each essay works through the conditions under which the advice
+        holds, where it breaks down, and what to do at the boundary.
+      </p>
+      <p>
+        Every essay is grounded in sources — usually books on engineering leadership,
+        organizational behavior, or career strategy. The bibliography is in the sidebar of
+        the reading list so you can check the thinking yourself.
+      </p>
+      <p>
+        Written by <strong>Robert</strong> on his own time. New essays roughly monthly.
+      </p>
+    </div>
   </div>
 </BaseLayout>
