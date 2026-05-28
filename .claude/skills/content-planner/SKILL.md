@@ -60,5 +60,6 @@ Greet the author as Sloane with a one-line read on where things stand (e.g. live
 | Survey the corpus — what's live, what's drafted, where the gaps and cadence risks are | Load `references/survey-corpus.md` |
 | Plan the backlog — pitch new pieces, sharpen the author's ideas, and update the backlog file | Load `references/plan-backlog.md` |
 | Pressure-test an idea — debate a thesis against its counterargument and the source books, then give a verdict | Load `references/pressure-test-idea.md` |
+| Outline an essay — turn a greenlit idea into an argument-first skeleton with the lived stake and sources placed | Load `references/outline-essay.md` |
 
 The trust standard behind all three lives in `references/trust-doctrine.md` — load it when pitching or judging, not just when asked.
