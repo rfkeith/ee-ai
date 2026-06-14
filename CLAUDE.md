@@ -6,6 +6,8 @@ Project guidance for Claude sessions working on this repo. Loaded into context a
 
 **Engineering Excellence** — a long-form essay journal on software engineering practice. Static Astro site, hand-written essays, no marketing layer. The author is Robert (a senior engineering leader); the journal's pitch is *trust over output* — every essay carries a real first-hand stake, every claim is grounded in a source the reader can check, and nothing is generated as filler.
 
+Published at **https://engineeringexcellence.dev**, served from a Vultr VPS. The VPS itself is reached via SSH at `fireandsmoke.life` — that hostname belongs to an unrelated cooking site sharing the same machine; don't confuse the two.
+
 ## Local development
 
 ```sh
@@ -16,7 +18,7 @@ npm run preview  # serve dist/ locally for a final eye
 
 ## Deploy
 
-The VPS runs a build script that pulls the latest source and publishes the site as `www-data`. Deploy after a push to `main` with one command:
+The VPS runs a build script that clones the repo fresh, builds with Astro, and copies `dist/*` into `/var/www/ee/` (the live directory). Deploy after a push to `main` with one command:
 
 ```sh
 ssh -i ~/.ssh/vultr root@fireandsmoke.life "sudo -u www-data /var/www/webhooks/doBuild.sh"
@@ -29,7 +31,13 @@ ssh -i ~/.ssh/vultr root@fireandsmoke.life
 sudo -u www-data /var/www/webhooks/doBuild.sh
 ```
 
-The script (`/var/www/webhooks/doBuild.sh`) lives on the VPS and handles the source pull, Astro build, and publish. It **must** be run via `sudo -u www-data`.
+The script (`/var/www/webhooks/doBuild.sh`) **must** be run via `sudo -u www-data`. It uses `set -eo pipefail` and a post-build `dist/` sanity check, so a failed build will exit *before* wiping the live directory — production stays on the previous build instead of going empty. (This was added after a Node-version mismatch wiped the live site on 2026-06-14; the original script lacked both guards.)
+
+**Build log:** `/var/build/engineeringexcellence.build.log` on the VPS. Tail it to debug failed builds — it captures the full nvm + npm + astro output.
+
+**Node version:** the script installs Node 22 via nvm (required by Astro 6, which refuses to run on Node <22.12.0). If you bump the Astro major version and it requires something newer, the `nvm install 22` line is what to update.
+
+**The build script itself is not in this repo** — it lives only on the VPS. If the VPS is ever rebuilt, the script needs to be recreated from your records or from this CLAUDE.md.
 
 ## Repo layout
 
