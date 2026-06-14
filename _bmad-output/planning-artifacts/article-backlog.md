@@ -7,7 +7,7 @@
 > Cadence target: 1–2 essays/month. Departments: Leadership · Best Practices · Career · AI.
 > Raw scene material that hasn't yet found an essay: [scene-library.md](scene-library.md).
 
-_Last reconciled: 2026-05-31_
+_Last reconciled: 2026-06-14_
 
 ## Now (in progress / next up)
 
@@ -39,7 +39,6 @@ _Argument skeletons live in `outlines/` and are linked from each entry once writ
 
 | Title | Premise (one line) | Lived stake / angle | Candidate sources | Status |
 |-------|--------------------|---------------------|-------------------|--------|
-| Capability vs. Belief: The Con Your Brain Runs on Your Own Competence | Capability often arrives before the self-image does — sometimes the role has to be handed to you before you believe you're the person who does the job. (Working title chosen 2026-05-31; was "The Self-Image Ceiling: …".) | Author's own: managed a team for years as a contractor with no career responsibility, then took a permanent Senior Director of Engineering role at a major investment bank — 15 reports and performance management, cold. ~3 months in, after a baptism of fire, realised he was genuinely good at growing people; now sought out for that advice. The capability preceded the self-image. | Psycho-Cybernetics (Maltz) — Ch. 1 (self-image as ceiling), Ch. 3 (reliving real wins to expand it) | greenlit — strongest of the slate; extends the published Senior→Staff piece. **Outline:** [outlines/self-image-ceiling.md](outlines/self-image-ceiling.md) |
 | Scar Tissue: Performing While You're Still Short of the Title | A repeatedly-missed promotion is an emotional scar, not just a setback; left unprocessed it quietly shrinks how you show up — Maltz's move is to relive the wins, not the near-misses. | Author's own, *ongoing*: has missed Managing Director multiple times at a major investment bank; still on the journey, closer than ever — no tidy resolution yet. | Psycho-Cybernetics (Maltz) — Foreword (Furey's "always number two" story is this exact scar), Ch. 9 (failure mechanism), Ch. 10 (emotional scars) | proposed — greenlit. Author confirmed comfortable being publicly vulnerable here (aligns with trust doctrine; the unresolved ending is the point — no "but I made it" bow). Pairs with Self-Image Ceiling as a two-beat bank-leadership arc — sequence apart, don't publish back-to-back |
 
 ### AI
@@ -55,6 +54,7 @@ _Argument skeletons live in `outlines/` and are linked from each entry once writ
 |-------|------------|-----------|---------|
 | Shielding vs. Exposure: When to Protect Your Team and When to Let Them See the Mess | Leadership | 2026-02-07 | Unite the Tribes (Duncan); Never Lead Alone (Ferrazzi) |
 | From Senior to Staff: What You Need to Change and What Your Org Needs to Provide | Career | 2026-02-08 | Unite the Tribes (Duncan); Never Lead Alone (Ferrazzi) |
+| Capability vs. Belief: The Con Your Brain Runs on Your Own Competence | Career | 2026-06-14 | Psycho-Cybernetics (Maltz) |
 
 ## Parked
 
@@ -68,5 +68,5 @@ _Argument skeletons live in `outlines/` and are linked from each entry once writ
 |------|--------|----------|
 | Unite the Tribes | Christopher Duncan | Shielding vs. Exposure; From Senior to Staff; Pre-Mortems (draft); AI Threat Assessment (draft) |
 | Never Lead Alone | Keith Ferrazzi | Shielding vs. Exposure; From Senior to Staff; Pre-Mortems (draft); AI Threat Assessment (draft) |
-| Psycho-Cybernetics | Maxwell Maltz | Proposed slate (Self-Image Ceiling, Scar Tissue, Two Clocks, Inpert) — was uncited; now the spine of the proposed pitches, not yet in a published piece |
+| Psycho-Cybernetics | Maxwell Maltz | Capability vs. Belief; Scar Tissue (proposed); Two Clocks (proposed); The Inpert Advantage (proposed); The Moving Target (proposed) |
 | An Elegant Puzzle | Will Larson | _newly added 2026-06-14; uncited so far — staff-track / engineering-management territory_ |
