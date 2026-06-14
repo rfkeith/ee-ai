@@ -5,8 +5,9 @@
 > Books give rigor; lived experience gives trust. An entry that's all citation and no scar is half-built.
 > Status: `proposed` → `in-progress` → `published`, or `parked` (with a reason, never deleted).
 > Cadence target: 1–2 essays/month. Departments: Leadership · Best Practices · Career · AI.
+> Raw scene material that hasn't yet found an essay: [scene-library.md](scene-library.md).
 
-_Last reconciled: 2026-05-28_
+_Last reconciled: 2026-05-31_
 
 ## Now (in progress / next up)
 
@@ -17,7 +18,9 @@ _Last reconciled: 2026-05-28_
 
 ## Proposed
 
-_None yet — run "plan the backlog" to generate the first pitches._
+_First slate added 2026-05-28 — four pitches mined from Psycho-Cybernetics (the previously uncited source) and tied to threads the existing corpus already opened. #1–#3 carry real lived stakes; #4 is scar-pending._
+
+_Argument skeletons live in `outlines/` and are linked from each entry once written._
 
 ### Leadership
 
@@ -29,19 +32,22 @@ _None yet — run "plan the backlog" to generate the first pitches._
 
 | Title | Premise (one line) | Lived stake / angle | Candidate sources | Status |
 |-------|--------------------|---------------------|-------------------|--------|
-| | | | | |
+| Two Clocks: Responding to a Step-Change in Threat | When attacker capability jumps, the response runs on two clocks at once — what buys the most protection *this quarter*, and what structural SDLC/culture change stops a recurrence. Most orgs do the first and call it done. | Author's own: a recent advance in vulnerability exploitation forced a pivot into a new role leading exactly this — triage the gaps for fastest protection, then re-engineer practices/culture/SDLC so it can't recur. | Psycho-Cybernetics (Maltz) — Ch. 13 (crisis into creative opportunity); Unite the Tribes (Duncan) & Never Lead Alone (Ferrazzi) for the culture/SDLC change | greenlit — real scar; stays in Best Practices (decided 2026-05-29), pairs with Pre-Mortems. Distinct from the held "mental rehearsal" pitch below; AI-as-attacker angle spun off to "The Moving Target." **Outline:** [outlines/two-clocks.md](outlines/two-clocks.md) |
+| Rehearse the Outage: Mental Simulation as an On-Call Skill | Maltz's synthetic-experience finding — the nervous system can't tell vivid rehearsal from the real thing — as the case for rehearsing incident response *before* it happens. | _needs author's angle — no lived "froze / held steady" incident moment yet_ | Psycho-Cybernetics (Maltz) — Ch. 3 | held — scar-less, not abandoned. Revisit if a real incident-rehearsal moment surfaces |
 
 ### Career
 
 | Title | Premise (one line) | Lived stake / angle | Candidate sources | Status |
 |-------|--------------------|---------------------|-------------------|--------|
-| | | | | |
+| Capability vs. Belief: The Con Your Brain Runs on Your Own Competence | Capability often arrives before the self-image does — sometimes the role has to be handed to you before you believe you're the person who does the job. (Working title chosen 2026-05-31; was "The Self-Image Ceiling: …".) | Author's own: managed a team for years as a contractor with no career responsibility, then took a permanent Senior Director of Engineering role at a major investment bank — 15 reports and performance management, cold. ~3 months in, after a baptism of fire, realised he was genuinely good at growing people; now sought out for that advice. The capability preceded the self-image. | Psycho-Cybernetics (Maltz) — Ch. 1 (self-image as ceiling), Ch. 3 (reliving real wins to expand it) | greenlit — strongest of the slate; extends the published Senior→Staff piece. **Outline:** [outlines/self-image-ceiling.md](outlines/self-image-ceiling.md) |
+| Scar Tissue: Performing While You're Still Short of the Title | A repeatedly-missed promotion is an emotional scar, not just a setback; left unprocessed it quietly shrinks how you show up — Maltz's move is to relive the wins, not the near-misses. | Author's own, *ongoing*: has missed Managing Director multiple times at a major investment bank; still on the journey, closer than ever — no tidy resolution yet. | Psycho-Cybernetics (Maltz) — Foreword (Furey's "always number two" story is this exact scar), Ch. 9 (failure mechanism), Ch. 10 (emotional scars) | proposed — greenlit. Author confirmed comfortable being publicly vulnerable here (aligns with trust doctrine; the unresolved ending is the point — no "but I made it" bow). Pairs with Self-Image Ceiling as a two-beat bank-leadership arc — sequence apart, don't publish back-to-back |
 
 ### AI
 
 | Title | Premise (one line) | Lived stake / angle | Candidate sources | Status |
 |-------|--------------------|---------------------|-------------------|--------|
-| | | | | |
+| The Inpert Advantage: What Gains Value When AI Knows Everything | As AI flattens access to expert knowledge, the edge shifts from knowing the rules to asking the question insiders are too embedded to ask — Maltz's "inpert." | _needs author's angle — author still thinking; needs a real moment where a naive question cracked an expert deadlock_ | Psycho-Cybernetics (Maltz) — Preface ("inpert"); cross with the AI Threat Assessment draft | proposed — promising thesis, scar pending; send to pressure-test before writing |
+| The Moving Target: Security Posture When AI Accelerates the Attacker | Point-in-time security is dead — AI makes attacker capability a moving target, so the durable posture optimises for *speed of re-assessment and recovery*, not a one-time "secure" state. Your threat model has a half-life. | Shares the security-pivot experience behind Two Clocks, but at a higher altitude — the moment of realising the *landscape* shifted, not just one vuln. **FLAG:** needs a distinct angle from #2 or it reads as leftovers. | Cross with the AI Threat Assessment draft; Psycho-Cybernetics (Maltz) — Ch. 13 (crisis → opportunity) | proposed — spun off from Two Clocks (Robert's idea, 2026-05-28). Thesis still soft ("think about change" is a topic — sharpened claim above). Send to pressure-test. Boundaries: vs. AI Threat draft (that's AI-as-worker, this is AI-as-attacker); vs. #2 (that's response framework, this is posture) |
 
 ## Published
 
@@ -62,4 +68,4 @@ _None yet — run "plan the backlog" to generate the first pitches._
 |------|--------|----------|
 | Unite the Tribes | Christopher Duncan | Shielding vs. Exposure; From Senior to Staff; Pre-Mortems (draft); AI Threat Assessment (draft) |
 | Never Lead Alone | Keith Ferrazzi | Shielding vs. Exposure; From Senior to Staff; Pre-Mortems (draft); AI Threat Assessment (draft) |
-| Psycho-Cybernetics | Maxwell Maltz | _uncited — underused_ |
+| Psycho-Cybernetics | Maxwell Maltz | Proposed slate (Self-Image Ceiling, Scar Tissue, Two Clocks, Inpert) — was uncited; now the spine of the proposed pitches, not yet in a published piece |
