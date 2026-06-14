@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { departments } from '../lib/departments';
 
 interface Props {
   /** Highlight the current department, if any. */
@@ -12,14 +13,10 @@ const { currentCategory, withSubscribe = false } = Astro.props;
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-// Department counts
-const departments = [
-  { slug: 'leadership', label: 'Leadership' },
-  { slug: 'best-practices', label: 'Best Practices' },
-  { slug: 'career', label: 'Career' },
-  { slug: 'ai', label: 'AI' },
-].map((d) => ({
-  ...d,
+// Department counts (canonical list comes from lib/departments)
+const departmentsWithCounts = departments.map((d) => ({
+  slug: d.slug,
+  label: d.label,
   count: posts.filter((p) => p.data.category === d.slug).length,
 }));
 
@@ -48,7 +45,7 @@ const sources = [...sourceMap.values()].sort((a, b) => b.count - a.count || a.bo
       Departments
     </h3>
     <ul class="flex flex-col gap-2.5 list-none m-0 p-0">
-      {departments.map((dept) => (
+      {departmentsWithCounts.map((dept) => (
         <li class="flex justify-between items-baseline">
           <a
             href={`/blog/category/${dept.slug}/`}

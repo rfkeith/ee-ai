@@ -3,51 +3,25 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ReadingEntry from '../../../components/ReadingEntry.astro';
 import Sidebar from '../../../components/Sidebar.astro';
-
-const categoryMeta: Record<string, { label: string; dekStrong: string; dek: string }> = {
-  leadership: {
-    label: 'Leadership',
-    dekStrong: 'On leading engineers.',
-    dek: 'Building teams that grow. Shielding well, exposing wisely, and the practical craft of running an engineering org.',
-  },
-  'best-practices': {
-    label: 'Best Practices',
-    dekStrong: 'On the craft of the work.',
-    dek: 'Habits, frameworks, and small acts of engineering discipline that compound across a career.',
-  },
-  career: {
-    label: 'Career',
-    dekStrong: 'On the jumps that aren’t easy.',
-    dek: 'Honest accounts of the senior-to-staff transition, the IC-to-manager pivot, and the moves that make a career.',
-  },
-  ai: {
-    label: 'AI',
-    dekStrong: 'On what AI changes, and what it doesn’t.',
-    dek: 'Activity-by-activity analysis of where AI replaces engineering work, where it amplifies it, and which skills now matter most.',
-  },
-};
+import { departments } from '../../../lib/departments';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
-  // All canonical departments. Listed here (not derived from categoryMeta)
-  // because Astro's getStaticPaths runs in an isolated scope and can't see
-  // module-level constants from the frontmatter body. Keep this list in sync
-  // with categoryMeta below and the departments array in Sidebar.astro.
-  const categories = ['leadership', 'best-practices', 'career', 'ai'];
-
-  return categories.map((category) => ({
-    params: { category },
+  // Imports DO reach getStaticPaths even though module-level consts don't,
+  // so departments here is the single source of truth.
+  return departments.map((dept) => ({
+    params: { category: dept.slug },
     props: {
-      category,
+      category: dept.slug,
       posts: posts
-        .filter((p) => p.data.category === category)
+        .filter((p) => p.data.category === dept.slug)
         .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
     },
   }));
 }
 
 const { category, posts } = Astro.props;
-const meta = categoryMeta[category] ?? { label: category, dekStrong: category, dek: '' };
+const meta = departments.find((d) => d.slug === category) ?? { label: category, dekStrong: category, dek: '' };
 const totalCount = posts.length;
 ---
 
