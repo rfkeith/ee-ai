@@ -37,7 +37,7 @@ The script (`/var/www/webhooks/doBuild.sh`) **must** be run via `sudo -u www-dat
 
 **Node version:** the script installs Node 22 via nvm (required by Astro 6, which refuses to run on Node <22.12.0). If you bump the Astro major version and it requires something newer, the `nvm install 22` line is what to update.
 
-**The build script itself is not in this repo** — it lives only on the VPS. If the VPS is ever rebuilt, the script needs to be recreated from your records or from this CLAUDE.md.
+**Build script source of truth:** [`infra/doBuild.sh`](infra/doBuild.sh) in this repo. The VPS copy at `/var/www/webhooks/doBuild.sh` must be kept in sync — see [`infra/README.md`](infra/README.md) for the `scp` sync command. If the VPS is ever rebuilt, re-deploy the script from this repo.
 
 ## Repo layout
 
