@@ -29,7 +29,11 @@ const categoryMeta: Record<string, { label: string; dekStrong: string; dek: stri
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
-  const categories = [...new Set(posts.map((p) => p.data.category))];
+  // All canonical departments. Listed here (not derived from categoryMeta)
+  // because Astro's getStaticPaths runs in an isolated scope and can't see
+  // module-level constants from the frontmatter body. Keep this list in sync
+  // with categoryMeta below and the departments array in Sidebar.astro.
+  const categories = ['leadership', 'best-practices', 'career', 'ai'];
 
   return categories.map((category) => ({
     params: { category },
