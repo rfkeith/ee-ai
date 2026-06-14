@@ -26,7 +26,7 @@ Failing to recognize the capability and internalize it makes you less likely to 
 
 ## What the Standard Advice Gets Right
 
-The traditional advice — 'fake it till you make it' — isn't wrong. Belief precedes capability. Visualization, rewriting failure into lesson, working with a coach who shows you what you got right and what to do about what you didn't — all of it slowly shifts your identity toward what you want to become.
+The traditional advice — 'fake it till you make it' — isn't wrong. It rests on a premise: belief precedes capability. Visualization, rewriting failure into lesson, working with a coach who shows you what you got right and what to do about what you didn't — all of it slowly shifts your identity toward what you want to become.
 ## When the Bank Handed Me Fifteen Reports
 
 When I converted from contractor to Senior Director of Engineering, I was handed a team of 15 in August — two months before the year-end performance management process. I had never officially managed a team. I had to learn fast, people's careers were in my hands. I had to manage expectations tied to emotionally charged stakes. Tenure, confirmation-bias and in some cases complete delusion about one's own capabilities all suddenly became things I had to care about and navigate. 
