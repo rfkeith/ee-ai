@@ -69,3 +69,4 @@ _Argument skeletons live in `outlines/` and are linked from each entry once writ
 | Unite the Tribes | Christopher Duncan | Shielding vs. Exposure; From Senior to Staff; Pre-Mortems (draft); AI Threat Assessment (draft) |
 | Never Lead Alone | Keith Ferrazzi | Shielding vs. Exposure; From Senior to Staff; Pre-Mortems (draft); AI Threat Assessment (draft) |
 | Psycho-Cybernetics | Maxwell Maltz | Proposed slate (Self-Image Ceiling, Scar Tissue, Two Clocks, Inpert) — was uncited; now the spine of the proposed pitches, not yet in a published piece |
+| An Elegant Puzzle | Will Larson | _newly added 2026-06-14; uncited so far — staff-track / engineering-management territory_ |
